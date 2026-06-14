@@ -12,12 +12,6 @@ export interface WaveformPoint {
   i: number;
 }
 
-export interface FrequencyResponsePoint {
-  frequency: number;
-  current: number;
-  phase: number;
-}
-
 const TWO_PI = 2 * Math.PI;
 
 export function calculateAngularFrequency(f: number): number {
@@ -45,14 +39,6 @@ export function calculateCurrent(U: number, R: number, f: number, L: number, C: 
 export function calculatePhase(R: number, f: number, L: number, C: number): number {
   const { XL, XC } = calculateReactance(f, L, C);
   return Math.atan((XL - XC) / R);
-}
-
-export function calculateResonanceFrequency(L: number, C: number): number {
-  return 1 / (TWO_PI * Math.sqrt(L * C));
-}
-
-export function calculateQ(R: number, L: number, C: number): number {
-  return (1 / R) * Math.sqrt(L / C);
 }
 
 export function getCircuitType(XL: number, XC: number): CircuitType {
@@ -86,37 +72,6 @@ export function generateWaveformData(
       i: I * Math.sin(omega * t - phi),
     };
   });
-}
-
-export function generateFrequencyResponseData(
-  U: number,
-  R: number,
-  L: number,
-  C: number,
-): FrequencyResponsePoint[] {
-  const minFrequency = 10;
-  const maxFrequency = 5000;
-  const samples = 220;
-  const f0 = calculateResonanceFrequency(L, C);
-  const frequencies = new Set<number>();
-  const minLog = Math.log10(minFrequency);
-  const maxLog = Math.log10(maxFrequency);
-
-  for (let index = 0; index <= samples; index += 1) {
-    frequencies.add(10 ** (minLog + ((maxLog - minLog) * index) / samples));
-  }
-
-  if (Number.isFinite(f0) && f0 >= minFrequency && f0 <= maxFrequency) {
-    frequencies.add(f0);
-  }
-
-  return Array.from(frequencies)
-    .sort((a, b) => a - b)
-    .map((frequency) => ({
-      frequency,
-      current: calculateCurrent(U, R, frequency, L, C),
-      phase: (calculatePhase(R, frequency, L, C) * 180) / Math.PI,
-    }));
 }
 
 export function radiansToDegrees(radians: number): number {

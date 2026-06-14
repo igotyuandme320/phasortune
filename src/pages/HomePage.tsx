@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Gauge, Waves } from "lucide-react";
+import { Activity, ArrowRight, Waves } from "lucide-react";
 import { Link } from "react-router-dom";
 import { AnimatedCircuit } from "../components/AnimatedCircuit";
 import { FormulaCard } from "../components/FormulaCard";
@@ -7,7 +7,7 @@ import { GlassPanel } from "../components/GlassPanel";
 
 const formulaCards = [
   "Z=R+j(\\omega L-\\frac{1}{\\omega C})",
-  "f_0=\\frac{1}{2\\pi\\sqrt{LC}}",
+  "P=UI\\cos\\varphi",
   "\\varphi=\\arctan\\frac{X_L-X_C}{R}",
 ];
 
@@ -22,12 +22,12 @@ const labCards = [
     color: "cyan",
   },
   {
-    to: "/resonance",
-    icon: Gauge,
-    title: "谐振挑战",
-    subtitle: "频率响应",
-    description: "调节频率，让 RLC 电路达到谐振并点亮灯泡。",
-    button: "开始挑战",
+    to: "/power",
+    icon: Activity,
+    title: "功率分析",
+    subtitle: "P / Q / S",
+    description: "观察瞬时功率、有功功率、无功功率、视在功率和功率因数。",
+    button: "进入分析",
     color: "green",
   },
 ];
@@ -55,15 +55,15 @@ export function HomePage() {
             PhasorTune
           </h1>
           <p className="mt-4 text-2xl font-semibold text-stone-100 sm:text-3xl">
-            正弦稳态与 RLC 谐振可视化实验室
+            正弦稳态与交流功率可视化实验室
           </p>
           <p className="demo-hide mx-auto mt-5 max-w-3xl text-base leading-8 text-stone-300 sm:text-lg">
-            通过旋转相量、动态波形和谐振小游戏，理解正弦稳态电路中的相位、阻抗、电流与频率响应。
+            通过旋转相量、动态波形和功率曲线，理解正弦稳态电路中的相位、阻抗、电流与功率流。
           </p>
         </div>
 
         <div className="relative mx-auto w-full max-w-5xl">
-          <AnimatedCircuit intensity={0.72} speed={0.76} showBulb resonant className="min-h-[300px]" />
+          <AnimatedCircuit intensity={0.72} speed={0.76} className="min-h-[300px]" />
           <div className="pointer-events-none absolute inset-0 hidden lg:block">
             {formulaCards.map((formula, index) => (
               <div

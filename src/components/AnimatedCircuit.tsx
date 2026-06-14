@@ -3,8 +3,6 @@ import { useId } from "react";
 interface AnimatedCircuitProps {
   intensity?: number;
   speed?: number;
-  resonant?: boolean;
-  showBulb?: boolean;
   className?: string;
 }
 
@@ -15,22 +13,20 @@ function clamp(value: number, min = 0, max = 1): number {
 export function AnimatedCircuit({
   intensity = 0.45,
   speed = 0.5,
-  resonant = false,
-  showBulb = false,
   className = "",
 }: AnimatedCircuitProps) {
   const rawId = useId().replace(/:/g, "");
   const pathId = `current-path-${rawId}`;
   const glow = clamp(intensity);
   const duration = 7 - clamp(speed) * 4.8;
-  const particleCount = resonant ? 9 : 6;
+  const particleCount = 6 + Math.round(glow * 3);
 
   return (
     <div className={`relative overflow-hidden rounded-lg border border-stone-200/10 bg-[#211f1b]/55 ${className}`}>
       <svg viewBox="0 0 680 360" role="img" aria-label="RLC 串联电路动画" className="h-full min-h-[260px] w-full">
         <defs>
           <filter id={`wire-glow-${rawId}`} x="-40%" y="-40%" width="180%" height="180%">
-            <feGaussianBlur stdDeviation={resonant ? "5" : "3"} result="blur" />
+            <feGaussianBlur stdDeviation={String(3 + glow * 2)} result="blur" />
             <feMerge>
               <feMergeNode in="blur" />
               <feMergeNode in="SourceGraphic" />
@@ -112,20 +108,6 @@ export function AnimatedCircuit({
           <path d="M420 172 V248 M438 172 V248" stroke="#D6A75D" strokeLinecap="round" strokeWidth="6" />
           <path d="M374 210 H420 M438 210 H455" stroke="#6B665C" strokeLinecap="round" strokeWidth="8" />
         </g>
-
-        {showBulb ? (
-          <g transform="translate(598 102)" filter={`url(#wire-glow-${rawId})`}>
-            <circle
-              cx="0"
-              cy="0"
-              r="22"
-              fill={`rgba(214,167,93,${0.12 + glow * 0.62})`}
-              stroke="#D6A75D"
-              strokeWidth="4"
-            />
-            <path d="M-9 -2 c8 -10 18 -10 18 0 c0 8 -5 11 -5 17 h-8 c0 -6 -5 -9 -5 -17z" fill="#D6A75D" opacity={0.55 + glow * 0.4} />
-          </g>
-        ) : null}
 
         {Array.from({ length: particleCount }, (_, index) => (
           <circle key={index} r={3.5 + glow * 3.2} fill="#F7E5D8" opacity={0.48 + glow * 0.45}>

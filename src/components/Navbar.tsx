@@ -1,11 +1,11 @@
-import { FlaskConical, Gauge, Home, MonitorUp, Waves } from "lucide-react";
+import { Activity, FlaskConical, Home, MonitorUp, Waves } from "lucide-react";
 import { Link, NavLink } from "react-router-dom";
 import { useDemoMode } from "../context/DemoModeContext";
 
 const navItems = [
   { to: "/", label: "首页", subtitle: "总览", icon: Home },
   { to: "/phasor", label: "相量实验室", subtitle: "相位与阻抗", icon: Waves },
-  { to: "/resonance", label: "谐振挑战", subtitle: "频率响应", icon: Gauge },
+  { to: "/power", label: "功率分析", subtitle: "P / Q / S", icon: Activity },
 ];
 
 export function Navbar() {

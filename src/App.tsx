@@ -5,7 +5,7 @@ import { LandernWatermark } from "./components/LandernWatermark";
 import { DemoModeProvider, useDemoMode } from "./context/DemoModeContext";
 import { HomePage } from "./pages/HomePage";
 import { PhasorLabPage } from "./pages/PhasorLabPage";
-import { ResonanceChallengePage } from "./pages/ResonanceChallengePage";
+import { PowerFlowLab } from "./pages/PowerFlowLab";
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -15,7 +15,7 @@ function AnimatedRoutes() {
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<HomePage />} />
         <Route path="/phasor" element={<PhasorLabPage />} />
-        <Route path="/resonance" element={<ResonanceChallengePage />} />
+        <Route path="/power" element={<PowerFlowLab />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </AnimatePresence>
