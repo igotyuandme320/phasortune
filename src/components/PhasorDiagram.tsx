@@ -12,49 +12,67 @@ function point(cx: number, cy: number, length: number, angle: number) {
 }
 
 export function PhasorDiagram({ voltageAmplitude, currentAmplitude, phase }: PhasorDiagramProps) {
-  const cx = 150;
-  const cy = 128;
-  const voltageLength = 82;
-  const currentLength = Math.max(34, Math.min(76, currentAmplitude * 220));
+  const cx = 165;
+  const cy = 140;
+  const voltageLength = 112;
+  const currentLength = Math.max(78, Math.min(110, currentAmplitude * 540));
   const voltageEnd = point(cx, cy, voltageLength, 0);
   const currentAngle = -phase;
   const currentEnd = point(cx, cy, currentLength, currentAngle);
-  const arcStart = point(cx, cy, 38, currentAngle);
-  const arcEnd = point(cx, cy, 38, 0);
+  const arcRadius = 46;
+  const arcStart = point(cx, cy, arcRadius, currentAngle);
+  const arcEnd = point(cx, cy, arcRadius, 0);
   const largeArcFlag = Math.abs(phase) > Math.PI ? 1 : 0;
   const sweepFlag = phase >= 0 ? 0 : 1;
   const phaseDegrees = (phase * 180) / Math.PI;
 
   return (
-    <div className="rounded-lg border border-slate-700/70 bg-slate-950/35 p-4">
+    <div className="rounded-lg border border-stone-200/10 bg-[#211f1b]/55 p-4">
       <div className="mb-3 flex items-center justify-between gap-3">
         <div>
-          <h3 className="font-semibold text-white">相量图</h3>
-          <p className="text-xs text-slate-400">Phasor diagram</p>
+          <h3 className="font-semibold text-stone-50">相量图</h3>
+          <p className="text-xs text-stone-400">Phasor diagram</p>
         </div>
-        <span className="rounded-md border border-cyan-300/20 bg-cyan-300/10 px-2 py-1 text-xs text-cyan-100">
+        <span className="rounded-md border border-lab-cyan/20 bg-lab-cyan/10 px-2 py-1 text-xs text-stone-100">
           φ = {phaseDegrees.toFixed(1)}°
         </span>
       </div>
-      <svg viewBox="0 0 300 260" className="h-[260px] w-full">
+      <svg viewBox="0 0 330 280" className="h-[270px] w-full">
         <defs>
-          <marker id="phasor-arrow-voltage" markerHeight="8" markerWidth="8" orient="auto" refX="6" refY="3">
-            <path d="M0,0 L0,6 L7,3 z" fill="#00D4FF" />
+          <marker
+            id="phasor-arrow-voltage"
+            markerHeight="10"
+            markerUnits="userSpaceOnUse"
+            markerWidth="10"
+            orient="auto"
+            refX="9"
+            refY="5"
+          >
+            <path d="M0,0 L0,10 L10,5 z" fill="#D97757" />
           </marker>
-          <marker id="phasor-arrow-current" markerHeight="8" markerWidth="8" orient="auto" refX="6" refY="3">
-            <path d="M0,0 L0,6 L7,3 z" fill="#22C55E" />
+          <marker
+            id="phasor-arrow-current"
+            markerHeight="10"
+            markerUnits="userSpaceOnUse"
+            markerWidth="10"
+            orient="auto"
+            refX="9"
+            refY="5"
+          >
+            <path d="M0,0 L0,10 L10,5 z" fill="#6FA58A" />
           </marker>
         </defs>
-        <circle cx={cx} cy={cy} r="96" fill="rgba(15,23,42,0.42)" stroke="rgba(148,163,184,0.18)" />
-        <path d={`M${cx - 110} ${cy} H${cx + 110} M${cx} ${cy + 110} V${cy - 110}`} stroke="#334155" strokeWidth="1" />
-        <circle cx={cx} cy={cy} r="4" fill="#E5E7EB" />
+        <circle cx={cx} cy={cy} r="116" fill="rgba(35,32,28,0.58)" stroke="rgba(246,235,220,0.14)" />
+        <circle cx={cx} cy={cy} r="78" fill="none" stroke="rgba(246,235,220,0.08)" />
+        <path d={`M${cx - 128} ${cy} H${cx + 128} M${cx} ${cy + 122} V${cy - 122}`} stroke="rgba(246,235,220,0.12)" strokeWidth="1" />
+        <circle cx={cx} cy={cy} r="3.5" fill="#F3EEE7" />
         <line
           x1={cx}
           y1={cy}
           x2={voltageEnd.x}
           y2={voltageEnd.y}
-          stroke="#00D4FF"
-          strokeWidth="5"
+          stroke="#D97757"
+          strokeWidth="3.5"
           strokeLinecap="round"
           markerEnd="url(#phasor-arrow-voltage)"
         />
@@ -63,27 +81,27 @@ export function PhasorDiagram({ voltageAmplitude, currentAmplitude, phase }: Pha
           y1={cy}
           x2={currentEnd.x}
           y2={currentEnd.y}
-          stroke="#22C55E"
-          strokeWidth="5"
+          stroke="#6FA58A"
+          strokeWidth="3.5"
           strokeLinecap="round"
           markerEnd="url(#phasor-arrow-current)"
         />
         {Math.abs(phase) > 0.02 ? (
           <path
-            d={`M ${arcStart.x} ${arcStart.y} A 38 38 0 ${largeArcFlag} ${sweepFlag} ${arcEnd.x} ${arcEnd.y}`}
+            d={`M ${arcStart.x} ${arcStart.y} A ${arcRadius} ${arcRadius} 0 ${largeArcFlag} ${sweepFlag} ${arcEnd.x} ${arcEnd.y}`}
             fill="none"
-            stroke="#FACC15"
-            strokeWidth="3"
+            stroke="#D6A75D"
+            strokeWidth="2.5"
             strokeLinecap="round"
           />
         ) : null}
-        <text x={voltageEnd.x + 10} y={voltageEnd.y - 8} fill="#A5F3FC" fontSize="14" fontWeight="700">
+        <text x={voltageEnd.x + 8} y={voltageEnd.y - 8} fill="#F0B09A" fontSize="13" fontWeight="700">
           U = {voltageAmplitude.toFixed(1)}V
         </text>
-        <text x={currentEnd.x + 8} y={currentEnd.y + 18} fill="#BBF7D0" fontSize="14" fontWeight="700">
+        <text x={currentEnd.x + 8} y={currentEnd.y + 18} fill="#BFD9C9" fontSize="13" fontWeight="700">
           I = {currentAmplitude.toFixed(3)}A
         </text>
-        <text x={cx + 44} y={cy + (phase >= 0 ? 30 : -18)} fill="#FEF08A" fontSize="13">
+        <text x={cx + 54} y={cy + (phase >= 0 ? 32 : -20)} fill="#E2BF7B" fontSize="13">
           φ
         </text>
       </svg>

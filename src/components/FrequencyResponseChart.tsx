@@ -24,36 +24,36 @@ export function FrequencyResponseChart({
   achieved = false,
 }: FrequencyResponseChartProps) {
   return (
-    <div className="h-[320px] rounded-lg border border-slate-700/70 bg-slate-950/35 p-4">
+    <div className="h-[320px] rounded-lg border border-stone-200/10 bg-[#211f1b]/55 p-4">
       <div className="mb-3 flex items-center justify-between gap-3">
         <div>
-          <h3 className="font-semibold text-white">幅频响应</h3>
-          <p className="text-xs text-slate-400">Current amplitude response</p>
+          <h3 className="font-semibold text-stone-50">幅频响应</h3>
+          <p className="text-xs text-stone-400">Current amplitude response</p>
         </div>
-        <span className={`rounded-md border px-2 py-1 text-xs ${achieved ? "border-green-300/35 bg-green-300/10 text-green-100" : "border-cyan-300/20 bg-cyan-300/10 text-cyan-100"}`}>
+        <span className={`rounded-md border px-2 py-1 text-xs ${achieved ? "border-lab-green/35 bg-lab-green/10 text-stone-100" : "border-lab-cyan/20 bg-lab-cyan/10 text-stone-100"}`}>
           f₀ {resonanceFrequency.toFixed(1)} Hz
         </span>
       </div>
       <ResponsiveContainer width="100%" height="82%">
         <LineChart data={data} margin={{ top: 8, right: 12, left: 0, bottom: 4 }}>
-          <CartesianGrid stroke="rgba(148,163,184,0.14)" strokeDasharray="3 6" />
+          <CartesianGrid stroke="rgba(246,235,220,0.10)" strokeDasharray="3 6" />
           <XAxis
             dataKey="frequency"
             type="number"
             domain={[10, 5000]}
-            tick={{ fill: "#94A3B8", fontSize: 12 }}
+            tick={{ fill: "#9B9488", fontSize: 12 }}
             tickFormatter={(value: number) => `${Math.round(value)}`}
-            stroke="#334155"
+            stroke="#514C44"
           />
-          <YAxis tick={{ fill: "#BBF7D0", fontSize: 12 }} stroke="#166534" />
+          <YAxis tick={{ fill: "#BFD9C9", fontSize: 12 }} stroke="#486B59" />
           <Tooltip
-            contentStyle={{ background: "#0F172A", border: "1px solid rgba(148,163,184,0.25)", borderRadius: 8 }}
+            contentStyle={{ background: "#211F1B", border: "1px solid rgba(246,235,220,0.16)", borderRadius: 8 }}
             formatter={(value: number) => [`${value.toFixed(4)} A`, "电流"]}
             labelFormatter={(value) => `f = ${Number(value).toFixed(1)} Hz`}
           />
-          <ReferenceLine x={selectedFrequency} stroke="#00D4FF" strokeWidth={2} strokeDasharray="5 5" label={{ value: "当前", fill: "#A5F3FC", fontSize: 12 }} />
-          <ReferenceLine x={resonanceFrequency} stroke="#FACC15" strokeWidth={achieved ? 4 : 2} label={{ value: "f0", fill: "#FEF08A", fontSize: 12 }} />
-          <Line name="I" dataKey="current" dot={false} stroke="#22C55E" strokeWidth={3} type="monotone" />
+          <ReferenceLine x={selectedFrequency} stroke="#D97757" strokeWidth={2} strokeDasharray="5 5" label={{ value: "当前", fill: "#F0B09A", fontSize: 12 }} />
+          <ReferenceLine x={resonanceFrequency} stroke="#D6A75D" strokeWidth={achieved ? 4 : 2} label={{ value: "f0", fill: "#E2BF7B", fontSize: 12 }} />
+          <Line name="I" dataKey="current" dot={false} stroke="#6FA58A" strokeWidth={3} type="monotone" />
         </LineChart>
       </ResponsiveContainer>
     </div>

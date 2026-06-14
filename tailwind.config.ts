@@ -6,18 +6,18 @@ const config: Config = {
     extend: {
       colors: {
         lab: {
-          bg: "#050816",
-          panel: "rgba(15, 23, 42, 0.75)",
-          cyan: "#00D4FF",
-          purple: "#7C3AED",
-          green: "#22C55E",
-          yellow: "#FACC15",
-          text: "#E5E7EB",
+          bg: "#191713",
+          panel: "rgba(31, 29, 25, 0.78)",
+          cyan: "#D97757",
+          purple: "#8B78C2",
+          green: "#6FA58A",
+          yellow: "#D6A75D",
+          text: "#F3EEE7",
         },
       },
       boxShadow: {
-        neon: "0 0 28px rgba(0, 212, 255, 0.28)",
-        panel: "0 18px 60px rgba(0, 0, 0, 0.35)",
+        neon: "0 12px 38px rgba(217, 119, 87, 0.18)",
+        panel: "0 18px 60px rgba(0, 0, 0, 0.28)",
       },
       animation: {
         "grid-flow": "gridFlow 18s linear infinite",
@@ -38,11 +38,11 @@ const config: Config = {
         pulseGlow: {
           "0%, 100%": {
             opacity: "0.78",
-            filter: "drop-shadow(0 0 10px rgba(0, 212, 255, 0.36))",
+            filter: "drop-shadow(0 0 10px rgba(217, 119, 87, 0.22))",
           },
           "50%": {
             opacity: "1",
-            filter: "drop-shadow(0 0 22px rgba(34, 197, 94, 0.65))",
+            filter: "drop-shadow(0 0 20px rgba(111, 165, 138, 0.42))",
           },
         },
         dashFlow: {

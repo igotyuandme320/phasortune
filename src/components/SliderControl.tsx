@@ -12,10 +12,10 @@ interface SliderControlProps {
 }
 
 const accentMap = {
-  cyan: "#00D4FF",
-  green: "#22C55E",
-  purple: "#7C3AED",
-  yellow: "#FACC15",
+  cyan: "#D97757",
+  green: "#6FA58A",
+  purple: "#8B78C2",
+  yellow: "#D6A75D",
 };
 
 export function SliderControl({
@@ -34,15 +34,15 @@ export function SliderControl({
   const color = accentMap[accent];
 
   return (
-    <label className="block rounded-lg border border-slate-700/70 bg-slate-950/35 p-3">
+    <label className="block rounded-lg border border-stone-200/10 bg-[#211f1b]/55 p-3">
       <span className="mb-2 flex items-start justify-between gap-3">
         <span>
-          <span className="block text-sm font-semibold text-slate-100">{label}</span>
-          {subtitle ? <span className="text-xs text-slate-400">{subtitle}</span> : null}
+          <span className="block text-sm font-semibold text-stone-100">{label}</span>
+          {subtitle ? <span className="text-xs text-stone-400">{subtitle}</span> : null}
         </span>
-        <span className="rounded-md border border-white/10 bg-white/5 px-2 py-1 text-sm font-semibold text-white">
+        <span className="rounded-md border border-stone-100/10 bg-stone-100/5 px-2 py-1 text-sm font-semibold text-stone-50">
           {formatValue ? formatValue(value) : value}
-          {unit ? <span className="ml-1 text-xs text-slate-400">{unit}</span> : null}
+          {unit ? <span className="ml-1 text-xs text-stone-400">{unit}</span> : null}
         </span>
       </span>
       <input
@@ -54,7 +54,7 @@ export function SliderControl({
         value={value}
         onChange={(event) => onChange(Number(event.currentTarget.value))}
         style={{
-          background: `linear-gradient(90deg, ${color} 0%, ${color} ${percent}%, rgba(71,85,105,0.72) ${percent}%, rgba(71,85,105,0.72) 100%)`,
+          background: `linear-gradient(90deg, ${color} 0%, ${color} ${percent}%, rgba(87,83,74,0.72) ${percent}%, rgba(87,83,74,0.72) 100%)`,
         }}
       />
     </label>

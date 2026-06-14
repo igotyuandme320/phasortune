@@ -109,9 +109,9 @@ export function ResonanceChallengePage() {
     >
       <div className="mb-6 flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
         <div>
-          <p className="text-sm uppercase tracking-[0.2em] text-green-100/75">RLC series resonance</p>
-          <h1 className="mt-2 text-4xl font-black text-white sm:text-5xl">谐振挑战 Resonance Challenge</h1>
-          <p className="demo-hide mt-3 max-w-3xl leading-7 text-slate-300">调节频率，让电路进入谐振状态。</p>
+          <p className="text-sm uppercase tracking-[0.2em] text-lab-green/80">RLC series resonance</p>
+          <h1 className="mt-2 text-4xl font-black text-stone-50 sm:text-5xl">谐振挑战 Resonance Challenge</h1>
+          <p className="demo-hide mt-3 max-w-3xl leading-7 text-stone-300">调节频率，让电路进入谐振状态。</p>
         </div>
         <AnimatePresence>{values.achieved ? <SuccessBadge /> : null}</AnimatePresence>
       </div>
@@ -136,7 +136,7 @@ export function ResonanceChallengePage() {
             <button
               type="button"
               onClick={() => applyPreset("wide")}
-              className="rounded-lg border border-cyan-300/25 bg-cyan-300/10 px-2 py-3 text-xs font-semibold text-cyan-100 transition hover:bg-cyan-300/20"
+              className="rounded-lg border border-lab-cyan/25 bg-lab-cyan/10 px-2 py-3 text-xs font-semibold text-stone-100 transition hover:bg-lab-cyan/20"
             >
               <Activity className="mx-auto mb-1 h-4 w-4" />
               宽峰低 Q
@@ -144,7 +144,7 @@ export function ResonanceChallengePage() {
             <button
               type="button"
               onClick={() => applyPreset("sharp")}
-              className="rounded-lg border border-yellow-300/25 bg-yellow-300/10 px-2 py-3 text-xs font-semibold text-yellow-100 transition hover:bg-yellow-300/20"
+              className="rounded-lg border border-lab-yellow/25 bg-lab-yellow/10 px-2 py-3 text-xs font-semibold text-stone-100 transition hover:bg-lab-yellow/20"
             >
               <Zap className="mx-auto mb-1 h-4 w-4" />
               尖峰高 Q
@@ -152,7 +152,7 @@ export function ResonanceChallengePage() {
             <button
               type="button"
               onClick={() => applyPreset("random")}
-              className="rounded-lg border border-green-300/25 bg-green-300/10 px-2 py-3 text-xs font-semibold text-green-100 transition hover:bg-green-300/20"
+              className="rounded-lg border border-lab-green/25 bg-lab-green/10 px-2 py-3 text-xs font-semibold text-stone-100 transition hover:bg-lab-green/20"
             >
               <Shuffle className="mx-auto mb-1 h-4 w-4" />
               随机挑战
@@ -164,14 +164,14 @@ export function ResonanceChallengePage() {
           <GlassPanel className="p-4 demo-emphasis" delay={0.12}>
             <div className="mb-4 flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
               <div>
-                <h2 className="text-lg font-bold text-white">谐振电路 Resonant Circuit</h2>
-                <p className="text-xs text-slate-400">XL = XC 时电流最大</p>
+                <h2 className="text-lg font-bold text-stone-50">谐振电路 Resonant Circuit</h2>
+                <p className="text-xs text-stone-400">XL = XC 时电流最大</p>
               </div>
               <span
                 className={`rounded-lg border px-3 py-1 text-sm font-semibold ${
                   values.achieved
-                    ? "border-green-300/40 bg-green-300/15 text-green-100"
-                    : "border-cyan-300/25 bg-cyan-300/10 text-cyan-100"
+                    ? "border-lab-green/40 bg-lab-green/15 text-stone-100"
+                    : "border-lab-cyan/25 bg-lab-cyan/10 text-stone-100"
                 }`}
               >
                 {values.status}
@@ -191,7 +191,7 @@ export function ResonanceChallengePage() {
         </div>
 
         <GlassPanel className="h-fit p-4" delay={0.18}>
-          <h2 className="mb-4 text-lg font-bold text-white">挑战数据 Live Values</h2>
+          <h2 className="mb-4 text-lg font-bold text-stone-50">挑战数据 Live Values</h2>
           <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-1">
             <ValueCard label="f" subtitle="Current frequency" value={frequency.toFixed(0)} unit="Hz" />
             <ValueCard label="f₀" subtitle="Resonance frequency" value={values.resonanceFrequency.toFixed(1)} unit="Hz" accent="green" />
@@ -212,15 +212,15 @@ export function ResonanceChallengePage() {
           resonanceFrequency={values.resonanceFrequency}
         />
         <GlassPanel className="p-4" delay={0.05}>
-          <h2 className="mb-4 text-lg font-bold text-white">谐振公式与结论</h2>
+          <h2 className="mb-4 text-lg font-bold text-stone-50">谐振公式与结论</h2>
           <div className="grid gap-3 md:grid-cols-2">
             <FormulaCard formula={"f_0=\\frac{1}{2\\pi\\sqrt{LC}}"} />
             <FormulaCard formula={"Z=\\sqrt{R^2+(\\omega L-\\frac{1}{\\omega C})^2}"} />
             <FormulaCard formula={"I=\\frac{U}{Z}"} />
             <FormulaCard formula={"Q=\\frac{1}{R}\\sqrt{\\frac{L}{C}}"} />
           </div>
-          <div className="demo-hide mt-4 rounded-lg border border-green-300/20 bg-green-300/10 p-4">
-            <p className="leading-7 text-slate-200">
+          <div className="demo-hide mt-4 rounded-lg border border-lab-green/20 bg-lab-green/10 p-4">
+            <p className="leading-7 text-stone-200">
               在 RLC 串联电路中，当 XL = XC 时，感抗与容抗相互抵消，电路总阻抗最小，电流达到最大，此时发生串联谐振。
             </p>
           </div>

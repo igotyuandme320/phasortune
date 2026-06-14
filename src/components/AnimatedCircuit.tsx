@@ -26,7 +26,7 @@ export function AnimatedCircuit({
   const particleCount = resonant ? 9 : 6;
 
   return (
-    <div className={`relative overflow-hidden rounded-lg border border-cyan-300/15 bg-slate-950/45 ${className}`}>
+    <div className={`relative overflow-hidden rounded-lg border border-stone-200/10 bg-[#211f1b]/55 ${className}`}>
       <svg viewBox="0 0 680 360" role="img" aria-label="RLC 串联电路动画" className="h-full min-h-[260px] w-full">
         <defs>
           <filter id={`wire-glow-${rawId}`} x="-40%" y="-40%" width="180%" height="180%">
@@ -37,13 +37,13 @@ export function AnimatedCircuit({
             </feMerge>
           </filter>
           <linearGradient id={`component-gradient-${rawId}`} x1="0%" x2="100%" y1="0%" y2="0%">
-            <stop stopColor="#00D4FF" />
-            <stop offset="55%" stopColor="#22C55E" />
-            <stop offset="100%" stopColor="#FACC15" />
+            <stop stopColor="#D97757" />
+            <stop offset="55%" stopColor="#6FA58A" />
+            <stop offset="100%" stopColor="#D6A75D" />
           </linearGradient>
         </defs>
 
-        <rect x="16" y="16" width="648" height="328" rx="8" fill="rgba(15,23,42,0.34)" stroke="rgba(148,163,184,0.16)" />
+        <rect x="16" y="16" width="648" height="328" rx="8" fill="rgba(35,32,28,0.44)" stroke="rgba(246,235,220,0.12)" />
         <path
           id={pathId}
           d="M118 210 H196 L218 184 L244 236 L270 184 L296 236 L322 184 L348 236 L374 210 H455 M455 210 c10 -28 34 -28 44 0 c10 28 34 28 44 0 c10 -28 34 -28 44 0 M587 210 H606 V103 H118 V210"
@@ -55,7 +55,7 @@ export function AnimatedCircuit({
         <path
           d="M118 210 H196"
           fill="none"
-          stroke="#64748B"
+          stroke="#6B665C"
           strokeLinecap="round"
           strokeWidth="8"
         />
@@ -63,7 +63,7 @@ export function AnimatedCircuit({
           className="circuit-wire"
           d="M118 210 H196"
           fill="none"
-          stroke="#00D4FF"
+          stroke="#D97757"
           strokeLinecap="round"
           strokeOpacity={0.35 + glow * 0.55}
           strokeWidth="3"
@@ -72,7 +72,7 @@ export function AnimatedCircuit({
         <path
           d="M118 103 H606 V210 H587"
           fill="none"
-          stroke="#64748B"
+          stroke="#6B665C"
           strokeLinecap="round"
           strokeLinejoin="round"
           strokeWidth="8"
@@ -81,7 +81,7 @@ export function AnimatedCircuit({
           className="circuit-wire"
           d="M118 103 H606 V210 H587"
           fill="none"
-          stroke="#00D4FF"
+          stroke="#D97757"
           strokeLinecap="round"
           strokeLinejoin="round"
           strokeOpacity={0.32 + glow * 0.58}
@@ -89,9 +89,9 @@ export function AnimatedCircuit({
         />
 
         <g filter={`url(#wire-glow-${rawId})`}>
-          <circle cx="118" cy="156" r="35" fill="rgba(0,212,255,0.05)" stroke="#00D4FF" strokeWidth="4" />
-          <path d="M105 156 h26 M118 143 v26" stroke="#E5E7EB" strokeLinecap="round" strokeWidth="3" />
-          <path d="M103 189 h30" stroke="#94A3B8" strokeLinecap="round" strokeWidth="3" />
+          <circle cx="118" cy="156" r="35" fill="rgba(217,119,87,0.06)" stroke="#D97757" strokeWidth="4" />
+          <path d="M105 156 h26 M118 143 v26" stroke="#F3EEE7" strokeLinecap="round" strokeWidth="3" />
+          <path d="M103 189 h30" stroke="#9B9488" strokeLinecap="round" strokeWidth="3" />
 
           <path
             d="M196 210 L218 184 L244 236 L270 184 L296 236 L322 184 L348 236 L374 210"
@@ -104,13 +104,13 @@ export function AnimatedCircuit({
           <path
             d="M455 210 c10 -28 34 -28 44 0 c10 28 34 28 44 0 c10 -28 34 -28 44 0"
             fill="none"
-            stroke="#7C3AED"
+            stroke="#8B78C2"
             strokeLinecap="round"
             strokeWidth="6"
           />
 
-          <path d="M420 172 V248 M438 172 V248" stroke="#FACC15" strokeLinecap="round" strokeWidth="6" />
-          <path d="M374 210 H420 M438 210 H455" stroke="#64748B" strokeLinecap="round" strokeWidth="8" />
+          <path d="M420 172 V248 M438 172 V248" stroke="#D6A75D" strokeLinecap="round" strokeWidth="6" />
+          <path d="M374 210 H420 M438 210 H455" stroke="#6B665C" strokeLinecap="round" strokeWidth="8" />
         </g>
 
         {showBulb ? (
@@ -119,16 +119,16 @@ export function AnimatedCircuit({
               cx="0"
               cy="0"
               r="22"
-              fill={`rgba(250,204,21,${0.12 + glow * 0.62})`}
-              stroke="#FACC15"
+              fill={`rgba(214,167,93,${0.12 + glow * 0.62})`}
+              stroke="#D6A75D"
               strokeWidth="4"
             />
-            <path d="M-9 -2 c8 -10 18 -10 18 0 c0 8 -5 11 -5 17 h-8 c0 -6 -5 -9 -5 -17z" fill="#FACC15" opacity={0.55 + glow * 0.4} />
+            <path d="M-9 -2 c8 -10 18 -10 18 0 c0 8 -5 11 -5 17 h-8 c0 -6 -5 -9 -5 -17z" fill="#D6A75D" opacity={0.55 + glow * 0.4} />
           </g>
         ) : null}
 
         {Array.from({ length: particleCount }, (_, index) => (
-          <circle key={index} r={3.5 + glow * 3.2} fill="#E0F2FE" opacity={0.48 + glow * 0.45}>
+          <circle key={index} r={3.5 + glow * 3.2} fill="#F7E5D8" opacity={0.48 + glow * 0.45}>
             <animateMotion
               dur={`${duration}s`}
               begin={`${(-index * duration) / particleCount}s`}
@@ -140,17 +140,17 @@ export function AnimatedCircuit({
         ))}
 
         <g className="text-[18px] font-semibold">
-          <text x="72" y="280" fill="#E5E7EB">电源</text>
-          <text x="70" y="304" fill="#94A3B8" fontSize="14">Source</text>
-          <text x="258" y="280" fill="#E5E7EB">电阻 R</text>
-          <text x="406" y="280" fill="#E5E7EB">电容 C</text>
-          <text x="504" y="280" fill="#E5E7EB">电感 L</text>
+          <text x="72" y="280" fill="#F3EEE7">电源</text>
+          <text x="70" y="304" fill="#9B9488" fontSize="14">Source</text>
+          <text x="258" y="280" fill="#F3EEE7">电阻 R</text>
+          <text x="406" y="280" fill="#F3EEE7">电容 C</text>
+          <text x="504" y="280" fill="#F3EEE7">电感 L</text>
         </g>
       </svg>
       <div
         className="pointer-events-none absolute inset-0"
         style={{
-          boxShadow: `inset 0 0 ${24 + glow * 46}px rgba(0,212,255,${0.06 + glow * 0.14})`,
+          boxShadow: `inset 0 0 ${24 + glow * 46}px rgba(217,119,87,${0.05 + glow * 0.12})`,
         }}
       />
     </div>
