@@ -1,0 +1,157 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  background: #050816;
+  color: #e5e7eb;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background:
+    radial-gradient(circle at 25% 0%, rgba(0, 212, 255, 0.13), transparent 28%),
+    radial-gradient(circle at 80% 18%, rgba(250, 204, 21, 0.09), transparent 22%),
+    linear-gradient(135deg, #050816 0%, #07111f 48%, #050816 100%);
+  overflow-x: hidden;
+}
+
+button,
+input,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.app-shell {
+  position: relative;
+  min-height: 100vh;
+  isolation: isolate;
+}
+
+.app-shell::before {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  content: "";
+  background-image:
+    linear-gradient(rgba(0, 212, 255, 0.09) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 212, 255, 0.08) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), transparent 82%);
+  animation: gridFlow 20s linear infinite;
+}
+
+.app-shell::after {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  content: "";
+  background:
+    linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.08), transparent),
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.02) 0,
+      rgba(255, 255, 255, 0.02) 1px,
+      transparent 1px,
+      transparent 6px
+    );
+  opacity: 0.42;
+}
+
+.glass-panel {
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  background:
+    linear-gradient(135deg, rgba(15, 23, 42, 0.83), rgba(15, 23, 42, 0.58)),
+    rgba(15, 23, 42, 0.75);
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.34);
+  backdrop-filter: blur(18px);
+}
+
+.neon-text {
+  text-shadow:
+    0 0 12px rgba(0, 212, 255, 0.55),
+    0 0 36px rgba(124, 58, 237, 0.38);
+}
+
+.circuit-wire {
+  stroke-dasharray: 12 10;
+  animation: dashFlow 2.8s linear infinite;
+}
+
+.demo-mode {
+  font-size: 1.08rem;
+}
+
+.demo-mode .demo-hide {
+  display: none;
+}
+
+.demo-mode .demo-emphasis {
+  transform: scale(1.02);
+  transform-origin: top center;
+}
+
+.range-thumb::-webkit-slider-thumb {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #e5e7eb;
+  border-radius: 999px;
+  appearance: none;
+  background: #00d4ff;
+  box-shadow: 0 0 18px rgba(0, 212, 255, 0.8);
+}
+
+.range-thumb::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #e5e7eb;
+  border-radius: 999px;
+  background: #00d4ff;
+  box-shadow: 0 0 18px rgba(0, 212, 255, 0.8);
+}
+
+.katex {
+  color: #f8fafc;
+  font-size: 1.02em;
+}
+
+@keyframes gridFlow {
+  0% {
+    background-position: 0 0, 0 0;
+  }
+
+  100% {
+    background-position: 80px 80px, 80px 80px;
+  }
+}
+
+@keyframes dashFlow {
+  0% {
+    stroke-dashoffset: 0;
+  }
+
+  100% {
+    stroke-dashoffset: -48;
+  }
+}
+
+@media (max-width: 768px) {
+  .demo-mode {
+    font-size: 1rem;
+  }
+}
