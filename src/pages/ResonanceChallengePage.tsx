@@ -42,11 +42,7 @@ export function ResonanceChallengePage() {
     const difference = Math.abs(frequency - resonanceFrequency);
     const achieved = difference / resonanceFrequency < 0.03;
     const response = generateFrequencyResponseData(sourceVoltage, resistance, L, C);
-    const status = achieved
-      ? "接近谐振 Near resonance"
-      : frequency < resonanceFrequency
-        ? "低于谐振 Below resonance"
-        : "高于谐振 Above resonance";
+    const status = achieved ? "接近谐振" : frequency < resonanceFrequency ? "低于谐振" : "高于谐振";
 
     return {
       resonanceFrequency,
@@ -62,6 +58,7 @@ export function ResonanceChallengePage() {
   }, [C, L, frequency, resistance]);
 
   const brightness = Math.min(1, values.current / (sourceVoltage / resistance));
+  const visualBrightness = Math.sqrt(brightness);
 
   function applyPreset(preset: "wide" | "sharp" | "random") {
     if (preset === "wide") {
@@ -109,8 +106,8 @@ export function ResonanceChallengePage() {
     >
       <div className="mb-6 flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
         <div>
-          <p className="text-sm uppercase tracking-[0.2em] text-lab-green/80">RLC series resonance</p>
-          <h1 className="mt-2 text-4xl font-black text-stone-50 sm:text-5xl">谐振挑战 Resonance Challenge</h1>
+          <p className="text-sm tracking-[0.2em] text-lab-green/80">RLC 串联谐振</p>
+          <h1 className="mt-2 text-4xl font-black text-stone-50 sm:text-5xl">谐振挑战</h1>
           <p className="demo-hide mt-3 max-w-3xl leading-7 text-stone-300">调节频率，让电路进入谐振状态。</p>
         </div>
         <AnimatePresence>{values.achieved ? <SuccessBadge /> : null}</AnimatePresence>
@@ -127,9 +124,9 @@ export function ResonanceChallengePage() {
           />
 
           <div className="mt-4 grid gap-3">
-            <SliderControl label="电阻 R" subtitle="Resistance" min={1} max={200} step={1} value={resistance} unit="Ω" accent="yellow" onChange={setResistance} />
-            <SliderControl label="电感 L" subtitle="Inductance" min={1} max={500} step={1} value={inductanceMh} unit="mH" accent="purple" onChange={setInductanceMh} />
-            <SliderControl label="电容 C" subtitle="Capacitance" min={1} max={1000} step={0.1} value={capacitanceUf} unit="μF" accent="cyan" onChange={setCapacitanceUf} />
+            <SliderControl label="电阻 R" subtitle="峰值宽度" min={1} max={200} step={1} value={resistance} unit="Ω" accent="yellow" onChange={setResistance} />
+            <SliderControl label="电感 L" subtitle="影响谐振点" min={1} max={500} step={1} value={inductanceMh} unit="mH" accent="purple" onChange={setInductanceMh} />
+            <SliderControl label="电容 C" subtitle="影响谐振点" min={1} max={1000} step={0.1} value={capacitanceUf} unit="μF" accent="cyan" onChange={setCapacitanceUf} />
           </div>
 
           <div className="mt-4 grid grid-cols-3 gap-2">
@@ -164,7 +161,7 @@ export function ResonanceChallengePage() {
           <GlassPanel className="p-4 demo-emphasis" delay={0.12}>
             <div className="mb-4 flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
               <div>
-                <h2 className="text-lg font-bold text-stone-50">谐振电路 Resonant Circuit</h2>
+                <h2 className="text-lg font-bold text-stone-50">谐振电路</h2>
                 <p className="text-xs text-stone-400">XL = XC 时电流最大</p>
               </div>
               <span
@@ -178,8 +175,8 @@ export function ResonanceChallengePage() {
               </span>
             </div>
             <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_240px]">
-              <AnimatedCircuit intensity={brightness} speed={brightness} resonant={values.achieved} showBulb />
-              <GlowingBulb brightness={brightness} achieved={values.achieved} />
+              <AnimatedCircuit intensity={visualBrightness} speed={visualBrightness} resonant={values.achieved} showBulb />
+              <GlowingBulb brightness={visualBrightness} achieved={values.achieved} />
             </div>
           </GlassPanel>
           <FrequencyResponseChart
@@ -191,16 +188,16 @@ export function ResonanceChallengePage() {
         </div>
 
         <GlassPanel className="h-fit p-4" delay={0.18}>
-          <h2 className="mb-4 text-lg font-bold text-stone-50">挑战数据 Live Values</h2>
+          <h2 className="mb-4 text-lg font-bold text-stone-50">挑战数据</h2>
           <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-1">
-            <ValueCard label="f" subtitle="Current frequency" value={frequency.toFixed(0)} unit="Hz" />
-            <ValueCard label="f₀" subtitle="Resonance frequency" value={values.resonanceFrequency.toFixed(1)} unit="Hz" accent="green" />
-            <ValueCard label="|f - f₀|" subtitle="Difference" value={values.difference.toFixed(1)} unit="Hz" accent="yellow" />
-            <ValueCard label="|Z|" subtitle="Impedance" value={formatNumber(values.impedance)} unit="Ω" />
-            <ValueCard label="I" subtitle="Current" value={values.current.toFixed(4)} unit="A" accent="green" />
-            <ValueCard label="φ" subtitle="Phase angle" value={values.phaseDeg.toFixed(2)} unit="°" accent="yellow" />
-            <ValueCard label="Q" subtitle="Quality factor" value={values.q.toFixed(2)} accent="purple" />
-            <ValueCard label="状态" subtitle="Status" value={values.status.split(" ")[0]} accent={values.achieved ? "green" : "cyan"} />
+            <ValueCard label="f" subtitle="当前频率" value={frequency.toFixed(0)} unit="Hz" />
+            <ValueCard label="f₀" subtitle="谐振频率" value={values.resonanceFrequency.toFixed(1)} unit="Hz" accent="green" />
+            <ValueCard label="|f - f₀|" subtitle="频率差" value={values.difference.toFixed(1)} unit="Hz" accent="yellow" />
+            <ValueCard label="|Z|" subtitle="阻抗模" value={formatNumber(values.impedance)} unit="Ω" />
+            <ValueCard label="I" subtitle="电流" value={values.current.toFixed(4)} unit="A" accent="green" />
+            <ValueCard label="φ" subtitle="相位角" value={values.phaseDeg.toFixed(2)} unit="°" accent="yellow" />
+            <ValueCard label="Q" subtitle="品质因数" value={values.q.toFixed(2)} accent="purple" />
+            <ValueCard label="状态" subtitle="判断结果" value={values.status} accent={values.achieved ? "green" : "cyan"} />
           </div>
         </GlassPanel>
       </div>

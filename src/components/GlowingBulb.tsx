@@ -51,7 +51,7 @@ export function GlowingBulb({ brightness, achieved = false }: GlowingBulbProps) 
       </svg>
       <div className="text-center">
         <div className="text-sm font-semibold text-stone-100">灯泡亮度</div>
-        <div className="text-xs text-stone-400">Bulb brightness {(glow * 100).toFixed(0)}%</div>
+        <div className="text-xs text-stone-400">亮度 {(glow * 100).toFixed(0)}%</div>
       </div>
     </motion.div>
   );

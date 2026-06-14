@@ -16,8 +16,8 @@ export function SuccessBadge() {
       >
         <CheckCircle2 className="h-7 w-7 text-lab-green" />
       </motion.div>
-      <div className="text-2xl font-black text-stone-50">Resonance Achieved!</div>
-      <div className="text-lg font-semibold text-stone-100">谐振达成！</div>
+      <div className="text-2xl font-black text-stone-50">谐振达成</div>
+      <div className="text-lg font-semibold text-stone-100">电流达到峰值</div>
     </motion.div>
   );
 }

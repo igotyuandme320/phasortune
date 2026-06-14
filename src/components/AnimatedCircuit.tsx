@@ -141,7 +141,7 @@ export function AnimatedCircuit({
 
         <g className="text-[18px] font-semibold">
           <text x="72" y="280" fill="#F3EEE7">电源</text>
-          <text x="70" y="304" fill="#9B9488" fontSize="14">Source</text>
+          <text x="70" y="304" fill="#9B9488" fontSize="14">交流源</text>
           <text x="258" y="280" fill="#F3EEE7">电阻 R</text>
           <text x="406" y="280" fill="#F3EEE7">电容 C</text>
           <text x="504" y="280" fill="#F3EEE7">电感 L</text>

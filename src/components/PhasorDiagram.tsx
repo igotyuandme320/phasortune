@@ -2,6 +2,7 @@ interface PhasorDiagramProps {
   voltageAmplitude: number;
   currentAmplitude: number;
   phase: number;
+  currentScale?: number;
 }
 
 function point(cx: number, cy: number, length: number, angle: number) {
@@ -11,11 +12,12 @@ function point(cx: number, cy: number, length: number, angle: number) {
   };
 }
 
-export function PhasorDiagram({ voltageAmplitude, currentAmplitude, phase }: PhasorDiagramProps) {
+export function PhasorDiagram({ voltageAmplitude, currentAmplitude, currentScale, phase }: PhasorDiagramProps) {
   const cx = 165;
   const cy = 140;
-  const voltageLength = 112;
-  const currentLength = Math.max(78, Math.min(110, currentAmplitude * 540));
+  const normalizedCurrent = Math.max(0, Math.min(1, currentScale ?? currentAmplitude / 0.2));
+  const voltageLength = 76 + Math.min(1, voltageAmplitude / 20) * 38;
+  const currentLength = 48 + Math.sqrt(normalizedCurrent) * 64;
   const voltageEnd = point(cx, cy, voltageLength, 0);
   const currentAngle = -phase;
   const currentEnd = point(cx, cy, currentLength, currentAngle);
@@ -31,7 +33,7 @@ export function PhasorDiagram({ voltageAmplitude, currentAmplitude, phase }: Pha
       <div className="mb-3 flex items-center justify-between gap-3">
         <div>
           <h3 className="font-semibold text-stone-50">相量图</h3>
-          <p className="text-xs text-stone-400">Phasor diagram</p>
+          <p className="text-xs text-stone-400">电压为参考相量</p>
         </div>
         <span className="rounded-md border border-lab-cyan/20 bg-lab-cyan/10 px-2 py-1 text-xs text-stone-100">
           φ = {phaseDegrees.toFixed(1)}°

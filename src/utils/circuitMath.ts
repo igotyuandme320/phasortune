@@ -99,9 +99,11 @@ export function generateFrequencyResponseData(
   const samples = 220;
   const f0 = calculateResonanceFrequency(L, C);
   const frequencies = new Set<number>();
+  const minLog = Math.log10(minFrequency);
+  const maxLog = Math.log10(maxFrequency);
 
   for (let index = 0; index <= samples; index += 1) {
-    frequencies.add(minFrequency + ((maxFrequency - minFrequency) * index) / samples);
+    frequencies.add(10 ** (minLog + ((maxLog - minLog) * index) / samples));
   }
 
   if (Number.isFinite(f0) && f0 >= minFrequency && f0 <= maxFrequency) {

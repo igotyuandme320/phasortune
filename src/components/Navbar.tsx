@@ -3,9 +3,9 @@ import { Link, NavLink } from "react-router-dom";
 import { useDemoMode } from "../context/DemoModeContext";
 
 const navItems = [
-  { to: "/", label: "首页", subtitle: "Home", icon: Home },
-  { to: "/phasor", label: "相量实验室", subtitle: "Phasor", icon: Waves },
-  { to: "/resonance", label: "谐振挑战", subtitle: "Resonance", icon: Gauge },
+  { to: "/", label: "首页", subtitle: "总览", icon: Home },
+  { to: "/phasor", label: "相量实验室", subtitle: "相位与阻抗", icon: Waves },
+  { to: "/resonance", label: "谐振挑战", subtitle: "频率响应", icon: Gauge },
 ];
 
 export function Navbar() {
@@ -21,7 +21,7 @@ export function Navbar() {
           <span>
             <span className="block text-lg font-semibold tracking-wide text-white">PhasorTune</span>
             <span className="block text-xs uppercase tracking-[0.18em] text-stone-400">
-              Circuit Lab
+              电路实验室
             </span>
           </span>
         </Link>
@@ -65,7 +65,7 @@ export function Navbar() {
         >
           <MonitorUp className="h-4 w-4" />
           <span className="hidden sm:inline">课堂展示模式</span>
-          <span className="sm:hidden">Demo</span>
+          <span className="sm:hidden">展示</span>
         </button>
       </nav>
 

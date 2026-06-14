@@ -20,7 +20,7 @@ export function ImpedanceTriangle({ resistance, reactance, impedance, phase }: I
       <div className="mb-3 flex items-center justify-between gap-3">
         <div>
           <h3 className="font-semibold text-stone-50">阻抗三角形</h3>
-          <p className="text-xs text-stone-400">Impedance triangle</p>
+          <p className="text-xs text-stone-400">R 与 XL - XC 的几何关系</p>
         </div>
         <span className="rounded-md border border-lab-yellow/20 bg-lab-yellow/10 px-2 py-1 text-xs text-stone-100">
           |Z| = {impedance.toFixed(2)} Ω

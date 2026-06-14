@@ -44,8 +44,8 @@ export function WaveformChart({ data }: WaveformChartProps) {
             labelFormatter={(value) => `t = ${Number(value).toFixed(3)} ms`}
           />
           <Legend />
-          <Line yAxisId="voltage" name="u(t) 电压 / V" dataKey="u" dot={false} stroke="#D97757" strokeWidth={3} />
-          <Line yAxisId="current" name="i(t) 电流 / A" dataKey="i" dot={false} stroke="#6FA58A" strokeWidth={3} />
+          <Line yAxisId="voltage" name="电压 u(t) / V" dataKey="u" dot={false} stroke="#D97757" strokeWidth={3} />
+          <Line yAxisId="current" name="电流 i(t) / A" dataKey="i" dot={false} stroke="#6FA58A" strokeWidth={3} />
         </LineChart>
       </ResponsiveContainer>
     </div>

@@ -16,7 +16,7 @@ const labCards = [
     to: "/phasor",
     icon: Waves,
     title: "相量实验室",
-    subtitle: "Phasor Lab",
+    subtitle: "相位与阻抗",
     description: "观察正弦波、相位差、阻抗三角形和旋转相量。",
     button: "进入实验",
     color: "cyan",
@@ -25,7 +25,7 @@ const labCards = [
     to: "/resonance",
     icon: Gauge,
     title: "谐振挑战",
-    subtitle: "Resonance Challenge",
+    subtitle: "频率响应",
     description: "调节频率，让 RLC 电路达到谐振并点亮灯泡。",
     button: "开始挑战",
     color: "green",
@@ -49,7 +49,7 @@ export function HomePage() {
             transition={{ duration: 0.55 }}
             className="mb-4 inline-flex items-center rounded-lg border border-lab-cyan/25 bg-lab-cyan/10 px-3 py-1 text-sm text-stone-100"
           >
-            Circuit Analysis Visualization Lab
+            电路分析可视化实验室
           </motion.div>
           <h1 className="neon-text text-5xl font-black tracking-normal text-white sm:text-7xl lg:text-8xl">
             PhasorTune

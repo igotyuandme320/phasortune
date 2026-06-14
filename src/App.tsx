@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { Navbar } from "./components/Navbar";
+import { LandernWatermark } from "./components/LandernWatermark";
 import { DemoModeProvider, useDemoMode } from "./context/DemoModeContext";
 import { HomePage } from "./pages/HomePage";
 import { PhasorLabPage } from "./pages/PhasorLabPage";
@@ -30,6 +31,7 @@ function AppFrame() {
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.35 }}>
         <AnimatedRoutes />
       </motion.div>
+      <LandernWatermark />
     </div>
   );
 }

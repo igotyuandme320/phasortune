@@ -7,8 +7,11 @@ interface ResonanceKnobProps {
 }
 
 export function ResonanceKnob({ frequency, min, max, resonanceFrequency, onChange }: ResonanceKnobProps) {
-  const percent = (frequency - min) / (max - min);
+  const minLog = Math.log10(min);
+  const maxLog = Math.log10(max);
+  const percent = (Math.log10(frequency) - minLog) / (maxLog - minLog);
   const rotation = -135 + percent * 270;
+  const sliderValue = Math.round(percent * 1000);
 
   return (
     <div className="rounded-lg border border-stone-200/10 bg-[#211f1b]/55 p-5 text-center">
@@ -29,11 +32,15 @@ export function ResonanceKnob({ frequency, min, max, resonanceFrequency, onChang
       <input
         className="range-thumb mt-5 h-2 w-full cursor-pointer appearance-none rounded-full outline-none"
         type="range"
-        min={min}
-        max={max}
+        min={0}
+        max={1000}
         step={1}
-        value={frequency}
-        onChange={(event) => onChange(Number(event.currentTarget.value))}
+        value={sliderValue}
+        onChange={(event) => {
+          const nextPercent = Number(event.currentTarget.value) / 1000;
+          const nextFrequency = 10 ** (minLog + nextPercent * (maxLog - minLog));
+          onChange(Math.round(nextFrequency));
+        }}
         style={{
           background: `linear-gradient(90deg, #6FA58A 0%, #D97757 ${percent * 100}%, rgba(87,83,74,0.75) ${percent * 100}%, rgba(87,83,74,0.75) 100%)`,
         }}
