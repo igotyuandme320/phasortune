@@ -34,7 +34,7 @@ npm run build
 npm run build:github
 ```
 
-GitHub Actions 工作流位于 `.github/workflows/pages.yml`，会在推送到 `main` 分支时自动构建并部署。项目页路径使用 `/phasortune/`。
+GitHub Actions 工作流位于 `.github/workflows/pages.yml`，会在推送到 `main` 分支时自动构建并部署。当前自定义域名为 `circuit.landern.org`。
 
 ## Cloudflare Pages 部署
 
