@@ -52,24 +52,24 @@ export function PowerFlowLab() {
       <div className="mb-6 flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
         <div>
           <p className="text-sm tracking-[0.2em] text-lab-green/80">交流功率流</p>
-          <h1 className="mt-2 text-4xl font-black text-stone-50 sm:text-5xl">功率分析模块</h1>
+          <h1 className="mt-2 text-4xl font-semibold text-stone-50 sm:text-5xl">功率分析模块</h1>
           <p className="demo-hide mt-3 max-w-3xl leading-7 text-stone-300">
             调节 RLC 串联电路参数，实时观察瞬时功率、有功功率、无功功率、视在功率和功率因数。
           </p>
         </div>
 
         <div className="grid gap-3 sm:grid-cols-3">
-          <div className="rounded-lg border border-stone-200/10 bg-stone-100/[0.04] px-4 py-3">
+          <div className="surface-panel px-4 py-3">
             <div className="text-xs text-stone-500">相位角</div>
-            <div className="mt-1 text-xl font-bold text-stone-50">{values.phaseDeg.toFixed(2)}°</div>
+            <div className="mt-1 text-xl font-semibold text-stone-50">{values.phaseDeg.toFixed(2)}°</div>
           </div>
-          <div className="rounded-lg border border-stone-200/10 bg-stone-100/[0.04] px-4 py-3">
+          <div className="surface-panel px-4 py-3">
             <div className="text-xs text-stone-500">功率因数</div>
-            <div className="mt-1 text-xl font-bold text-stone-50">{values.metrics.powerFactor.toFixed(3)}</div>
+            <div className="mt-1 text-xl font-semibold text-stone-50">{values.metrics.powerFactor.toFixed(3)}</div>
           </div>
-          <div className="rounded-lg border border-stone-200/10 bg-stone-100/[0.04] px-4 py-3">
+          <div className="surface-panel px-4 py-3">
             <div className="text-xs text-stone-500">无功方向</div>
-            <div className="mt-1 text-xl font-bold text-stone-50">
+            <div className="mt-1 text-xl font-semibold text-stone-50">
               {values.netReactance > 0.5 ? "感性" : values.netReactance < -0.5 ? "容性" : "近似纯阻"}
             </div>
           </div>
@@ -100,7 +100,7 @@ export function PowerFlowLab() {
                 <h2 className="text-lg font-bold text-stone-50">RLC 串联电路</h2>
                 <p className="text-xs text-stone-400">电压、电流与功率按当前参数连续变化</p>
               </div>
-              <span className="rounded-lg border border-lab-green/25 bg-lab-green/10 px-3 py-1 text-sm text-stone-100">
+              <span className="rounded-lg border border-lab-green/20 bg-lab-green/[0.075] px-3 py-1 text-sm text-stone-100">
                 I = {values.metrics.current.toFixed(4)} A
               </span>
             </div>

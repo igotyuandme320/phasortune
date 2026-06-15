@@ -22,7 +22,7 @@ export function AnimatedCircuit({
   const particleCount = 6 + Math.round(glow * 3);
 
   return (
-    <div className={`relative overflow-hidden rounded-lg border border-stone-200/10 bg-[#211f1b]/55 ${className}`}>
+    <div className={`surface-panel relative overflow-hidden ${className}`}>
       <svg viewBox="0 0 680 360" role="img" aria-label="RLC 串联电路动画" className="h-full min-h-[260px] w-full">
         <defs>
           <filter id={`wire-glow-${rawId}`} x="-40%" y="-40%" width="180%" height="180%">
@@ -39,7 +39,7 @@ export function AnimatedCircuit({
           </linearGradient>
         </defs>
 
-        <rect x="16" y="16" width="648" height="328" rx="8" fill="rgba(35,32,28,0.44)" stroke="rgba(246,235,220,0.12)" />
+        <rect x="16" y="16" width="648" height="328" rx="8" fill="rgba(255,252,247,0.022)" stroke="rgba(246,235,220,0.09)" />
         <path
           id={pathId}
           d="M118 210 H196 L218 184 L244 236 L270 184 L296 236 L322 184 L348 236 L374 210 H455 M455 210 c10 -28 34 -28 44 0 c10 28 34 28 44 0 c10 -28 34 -28 44 0 M587 210 H606 V103 H118 V210"

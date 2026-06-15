@@ -29,13 +29,13 @@ export function PhasorDiagram({ voltageAmplitude, currentAmplitude, currentScale
   const phaseDegrees = (phase * 180) / Math.PI;
 
   return (
-    <div className="rounded-lg border border-stone-200/10 bg-[#211f1b]/55 p-4">
+    <div className="chart-surface p-4">
       <div className="mb-3 flex items-center justify-between gap-3">
         <div>
           <h3 className="font-semibold text-stone-50">相量图</h3>
           <p className="text-xs text-stone-400">电压为参考相量</p>
         </div>
-        <span className="rounded-md border border-lab-cyan/20 bg-lab-cyan/10 px-2 py-1 text-xs text-stone-100">
+        <span className="rounded-md border border-lab-cyan/20 bg-lab-cyan/[0.075] px-2.5 py-1 text-xs text-stone-100">
           φ = {phaseDegrees.toFixed(1)}°
         </span>
       </div>
@@ -43,28 +43,28 @@ export function PhasorDiagram({ voltageAmplitude, currentAmplitude, currentScale
         <defs>
           <marker
             id="phasor-arrow-voltage"
-            markerHeight="10"
+            markerHeight="7"
             markerUnits="userSpaceOnUse"
-            markerWidth="10"
+            markerWidth="7"
             orient="auto"
-            refX="9"
-            refY="5"
+            refX="6.5"
+            refY="3.5"
           >
-            <path d="M0,0 L0,10 L10,5 z" fill="#D97757" />
+            <path d="M0,0 L0,7 L7,3.5 z" fill="#E37A5F" />
           </marker>
           <marker
             id="phasor-arrow-current"
-            markerHeight="10"
+            markerHeight="7"
             markerUnits="userSpaceOnUse"
-            markerWidth="10"
+            markerWidth="7"
             orient="auto"
-            refX="9"
-            refY="5"
+            refX="6.5"
+            refY="3.5"
           >
-            <path d="M0,0 L0,10 L10,5 z" fill="#6FA58A" />
+            <path d="M0,0 L0,7 L7,3.5 z" fill="#78B99A" />
           </marker>
         </defs>
-        <circle cx={cx} cy={cy} r="116" fill="rgba(35,32,28,0.58)" stroke="rgba(246,235,220,0.14)" />
+        <circle cx={cx} cy={cy} r="116" fill="rgba(255,252,247,0.025)" stroke="rgba(246,235,220,0.10)" />
         <circle cx={cx} cy={cy} r="78" fill="none" stroke="rgba(246,235,220,0.08)" />
         <path d={`M${cx - 128} ${cy} H${cx + 128} M${cx} ${cy + 122} V${cy - 122}`} stroke="rgba(246,235,220,0.12)" strokeWidth="1" />
         <circle cx={cx} cy={cy} r="3.5" fill="#F3EEE7" />
@@ -73,8 +73,8 @@ export function PhasorDiagram({ voltageAmplitude, currentAmplitude, currentScale
           y1={cy}
           x2={voltageEnd.x}
           y2={voltageEnd.y}
-          stroke="#D97757"
-          strokeWidth="3.5"
+          stroke="#E37A5F"
+          strokeWidth="3"
           strokeLinecap="round"
           markerEnd="url(#phasor-arrow-voltage)"
         />
@@ -83,8 +83,8 @@ export function PhasorDiagram({ voltageAmplitude, currentAmplitude, currentScale
           y1={cy}
           x2={currentEnd.x}
           y2={currentEnd.y}
-          stroke="#6FA58A"
-          strokeWidth="3.5"
+          stroke="#78B99A"
+          strokeWidth="3"
           strokeLinecap="round"
           markerEnd="url(#phasor-arrow-current)"
         />

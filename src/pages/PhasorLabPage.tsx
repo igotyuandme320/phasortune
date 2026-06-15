@@ -66,7 +66,7 @@ export function PhasorLabPage() {
     >
       <div className="mb-6">
         <p className="text-sm tracking-[0.2em] text-lab-cyan/80">正弦稳态分析</p>
-        <h1 className="mt-2 text-4xl font-black text-stone-50 sm:text-5xl">相量实验室</h1>
+        <h1 className="mt-2 text-4xl font-semibold text-stone-50 sm:text-5xl">相量实验室</h1>
         <p className="demo-hide mt-3 max-w-3xl leading-7 text-stone-300">
           把正弦电压与电流转换为相量，观察阻抗角如何决定相位关系。
         </p>
@@ -91,7 +91,7 @@ export function PhasorLabPage() {
                 <h2 className="text-lg font-bold text-stone-50">RLC 串联电路</h2>
                 <p className="text-xs text-stone-400">串联电路动态示意</p>
               </div>
-              <span className="rounded-lg border border-lab-green/25 bg-lab-green/10 px-3 py-1 text-sm text-stone-100">
+              <span className="rounded-lg border border-lab-green/20 bg-lab-green/[0.075] px-3 py-1 text-sm text-stone-100">
                 I = {values.current.toFixed(4)} A
               </span>
             </div>
@@ -138,15 +138,15 @@ export function PhasorLabPage() {
         <GlassPanel className="p-4 demo-hide" delay={0.08}>
           <h2 className="mb-4 text-lg font-bold text-stone-50">课堂提示</h2>
           <div className="grid gap-3">
-            <div className="rounded-lg border border-lab-cyan/15 bg-lab-cyan/10 p-3">
+            <div className="surface-panel p-3">
               <h3 className="font-semibold text-stone-50">什么是相量？</h3>
               <p className="mt-1 text-sm leading-6 text-stone-300">相量把同频正弦量表示为复平面中的幅值和相位。</p>
             </div>
-            <div className="rounded-lg border border-lab-purple/15 bg-lab-purple/10 p-3">
+            <div className="surface-panel p-3">
               <h3 className="font-semibold text-stone-50">为什么用复数？</h3>
               <p className="mt-1 text-sm leading-6 text-stone-300">微分关系变成代数关系，电阻、电感、电容统一为阻抗。</p>
             </div>
-            <div className="rounded-lg border border-lab-yellow/15 bg-lab-yellow/10 p-3">
+            <div className="surface-panel p-3">
               <h3 className="font-semibold text-stone-50">阻抗角的意义</h3>
               <p className="mt-1 text-sm leading-6 text-stone-300">φ 为电压相对电流的相位角；正值表示感性，负值表示容性。</p>
             </div>

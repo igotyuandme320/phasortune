@@ -13,7 +13,7 @@ export function FormulaCard({ title, formula, caption, className = "" }: Formula
     <motion.div
       whileHover={{ y: -4, scale: 1.015 }}
       transition={{ type: "spring", stiffness: 260, damping: 20 }}
-      className={`rounded-lg border border-stone-200/10 bg-[#211f1b]/55 p-4 shadow-[0_12px_30px_rgba(0,0,0,0.18)] ${className}`}
+      className={`surface-panel p-4 ${className}`}
     >
       {title ? <div className="mb-2 text-sm font-semibold text-stone-100">{title}</div> : null}
       <div className="overflow-x-auto">

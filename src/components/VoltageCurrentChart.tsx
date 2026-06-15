@@ -16,29 +16,29 @@ interface VoltageCurrentChartProps {
 
 export function VoltageCurrentChart({ data }: VoltageCurrentChartProps) {
   return (
-    <div className="h-[320px] rounded-lg border border-stone-200/10 bg-[#211f1b]/55 p-4">
+    <div className="chart-surface h-[320px] p-4">
       <div className="mb-3">
         <h3 className="font-semibold text-stone-50">电压与电流</h3>
         <p className="text-xs text-stone-400">观察相位差如何改变功率流向</p>
       </div>
       <ResponsiveContainer width="100%" height="82%">
         <LineChart data={data} margin={{ top: 8, right: 12, left: 0, bottom: 4 }}>
-          <CartesianGrid stroke="rgba(246,235,220,0.10)" strokeDasharray="3 6" />
+          <CartesianGrid stroke="rgba(246,235,220,0.075)" strokeDasharray="3 7" />
           <XAxis
             dataKey="t"
             tick={{ fill: "#9B9488", fontSize: 12 }}
             tickFormatter={(value: number) => `${value.toFixed(1)}ms`}
-            stroke="#514C44"
+            stroke="rgba(246,235,220,0.16)"
           />
-          <YAxis yAxisId="voltage" tick={{ fill: "#F0B09A", fontSize: 12 }} stroke="#7B4938" />
-          <YAxis yAxisId="current" orientation="right" tick={{ fill: "#BFD9C9", fontSize: 12 }} stroke="#486B59" />
+          <YAxis yAxisId="voltage" tick={{ fill: "#F1A086", fontSize: 12 }} stroke="rgba(227,122,95,0.24)" />
+          <YAxis yAxisId="current" orientation="right" tick={{ fill: "#BFD9C9", fontSize: 12 }} stroke="rgba(120,185,154,0.24)" />
           <Tooltip
-            contentStyle={{ background: "#211F1B", border: "1px solid rgba(246,235,220,0.16)", borderRadius: 8 }}
+            contentStyle={{ background: "rgba(18,17,15,0.92)", border: "1px solid rgba(246,235,220,0.12)", borderRadius: 8, boxShadow: "0 14px 34px rgba(0,0,0,0.28)" }}
             labelFormatter={(value) => `时间 ${Number(value).toFixed(3)} ms`}
           />
           <Legend />
-          <Line yAxisId="voltage" name="电压 u(t) / V" dataKey="u" dot={false} stroke="#D97757" strokeWidth={3} />
-          <Line yAxisId="current" name="电流 i(t) / A" dataKey="i" dot={false} stroke="#6FA58A" strokeWidth={3} />
+          <Line yAxisId="voltage" name="电压 u(t) / V" dataKey="u" dot={false} isAnimationActive={false} stroke="#E37A5F" strokeWidth={2.6} />
+          <Line yAxisId="current" name="电流 i(t) / A" dataKey="i" dot={false} isAnimationActive={false} stroke="#78B99A" strokeWidth={2.6} />
         </LineChart>
       </ResponsiveContainer>
     </div>

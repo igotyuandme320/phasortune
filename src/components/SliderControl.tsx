@@ -34,19 +34,19 @@ export function SliderControl({
   const color = accentMap[accent];
 
   return (
-    <label className="block rounded-lg border border-stone-200/10 bg-[#211f1b]/55 p-3">
+    <label className="block rounded-lg border border-stone-200/[0.08] bg-stone-100/[0.035] p-3 shadow-[inset_0_1px_0_rgba(255,252,247,0.04)] transition hover:border-stone-100/[0.14]">
       <span className="mb-2 flex items-start justify-between gap-3">
         <span>
           <span className="block text-sm font-semibold text-stone-100">{label}</span>
           {subtitle ? <span className="text-xs text-stone-400">{subtitle}</span> : null}
         </span>
-        <span className="rounded-md border border-stone-100/10 bg-stone-100/5 px-2 py-1 text-sm font-semibold text-stone-50">
+        <span className="rounded-md border border-stone-100/[0.08] bg-black/15 px-2.5 py-1 text-sm font-semibold text-stone-50 shadow-[inset_0_1px_0_rgba(255,252,247,0.04)]">
           {formatValue ? formatValue(value) : value}
           {unit ? <span className="ml-1 text-xs text-stone-400"> {unit}</span> : null}
         </span>
       </span>
       <input
-        className="range-thumb h-2 w-full cursor-pointer appearance-none rounded-full outline-none"
+        className="range-thumb h-1.5 w-full cursor-pointer appearance-none rounded-full outline-none"
         type="range"
         min={min}
         max={max}
@@ -54,7 +54,7 @@ export function SliderControl({
         value={value}
         onChange={(event) => onChange(Number(event.currentTarget.value))}
         style={{
-          background: `linear-gradient(90deg, ${color} 0%, ${color} ${percent}%, rgba(87,83,74,0.72) ${percent}%, rgba(87,83,74,0.72) 100%)`,
+          background: `linear-gradient(90deg, ${color} 0%, ${color} ${percent}%, rgba(246,235,220,0.13) ${percent}%, rgba(246,235,220,0.13) 100%)`,
         }}
       />
     </label>

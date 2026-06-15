@@ -47,11 +47,11 @@ export function HomePage() {
             initial={{ opacity: 0, scale: 0.94 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.55 }}
-            className="mb-4 inline-flex items-center rounded-lg border border-lab-cyan/25 bg-lab-cyan/10 px-3 py-1 text-sm text-stone-100"
+            className="mb-4 inline-flex items-center rounded-lg border border-stone-100/[0.11] bg-stone-100/[0.055] px-3 py-1 text-sm text-stone-100 shadow-[inset_0_1px_0_rgba(255,252,247,0.055)]"
           >
             电路分析可视化实验室
           </motion.div>
-          <h1 className="neon-text text-5xl font-black tracking-normal text-white sm:text-7xl lg:text-8xl">
+          <h1 className="neon-text text-5xl font-semibold tracking-normal text-white sm:text-7xl lg:text-8xl">
             PhasorTune
           </h1>
           <p className="mt-4 text-2xl font-semibold text-stone-100 sm:text-3xl">
@@ -93,8 +93,8 @@ export function HomePage() {
                     <div
                       className={`mb-4 grid h-12 w-12 place-items-center rounded-lg border ${
                         isGreen
-                          ? "border-lab-green/30 bg-lab-green/10 text-lab-green"
-                          : "border-lab-cyan/30 bg-lab-cyan/10 text-lab-cyan"
+                          ? "border-lab-green/20 bg-lab-green/[0.065] text-lab-green"
+                          : "border-lab-cyan/20 bg-lab-cyan/[0.065] text-lab-cyan"
                       }`}
                     >
                       <Icon className="h-6 w-6" />
@@ -107,8 +107,8 @@ export function HomePage() {
                     to={card.to}
                     className={`inline-flex w-fit items-center gap-2 rounded-lg border px-4 py-2 font-semibold transition ${
                       isGreen
-                        ? "border-lab-green/35 bg-lab-green/10 text-stone-100 hover:bg-lab-green/20"
-                        : "border-lab-cyan/35 bg-lab-cyan/10 text-stone-100 hover:bg-lab-cyan/20"
+                        ? "border-lab-green/[0.24] bg-lab-green/[0.07] text-stone-100 hover:bg-lab-green/[0.11]"
+                        : "border-lab-cyan/[0.24] bg-lab-cyan/[0.07] text-stone-100 hover:bg-lab-cyan/[0.11]"
                     }`}
                   >
                     {card.button}

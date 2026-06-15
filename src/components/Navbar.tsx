@@ -12,10 +12,10 @@ export function Navbar() {
   const { isDemoMode, toggleDemoMode } = useDemoMode();
 
   return (
-    <header className="sticky top-0 z-50 border-b border-stone-200/10 bg-[#191713]/88 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 border-b border-stone-200/[0.075] bg-[#111214]/78 backdrop-blur-2xl">
       <nav className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 lg:px-6">
         <Link to="/" className="flex items-center gap-3">
-          <span className="grid h-10 w-10 place-items-center rounded-lg border border-lab-cyan/30 bg-lab-cyan/10 shadow-neon">
+          <span className="grid h-10 w-10 place-items-center rounded-lg border border-lab-cyan/20 bg-lab-cyan/[0.075] shadow-[inset_0_1px_0_rgba(255,252,247,0.08),0_10px_28px_rgba(0,0,0,0.18)]">
             <FlaskConical className="h-5 w-5 text-lab-cyan" />
           </span>
           <span>
@@ -36,12 +36,12 @@ export function Navbar() {
                 className={({ isActive }) =>
                   `group flex items-center gap-2 rounded-lg border px-3 py-2 transition ${
                     isActive
-                      ? "border-lab-cyan/45 bg-lab-cyan/10 text-stone-50 shadow-neon"
-                      : "border-transparent text-stone-300 hover:border-lab-cyan/20 hover:bg-stone-100/5"
+                      ? "border-stone-100/[0.13] bg-stone-100/[0.075] text-stone-50 shadow-[inset_0_1px_0_rgba(255,252,247,0.055)]"
+                      : "border-transparent text-stone-300 hover:border-stone-100/[0.09] hover:bg-stone-100/[0.04]"
                   }`
                 }
               >
-                <Icon className="h-4 w-4 text-lab-cyan" />
+                <Icon className="h-4 w-4 text-lab-cyan/90" />
                 <span className="leading-tight">
                   <span className="block text-sm font-medium">{item.label}</span>
                   <span className="block text-[10px] uppercase tracking-[0.16em] text-stone-500">
@@ -59,8 +59,8 @@ export function Navbar() {
           onClick={toggleDemoMode}
           className={`flex items-center gap-2 rounded-lg border px-3 py-2 text-sm font-medium transition ${
             isDemoMode
-              ? "border-lab-yellow/50 bg-lab-yellow/10 text-stone-50 shadow-[0_12px_28px_rgba(214,167,93,0.16)]"
-              : "border-stone-300/15 bg-[#211f1b]/75 text-stone-200 hover:border-lab-cyan/35 hover:text-stone-50"
+              ? "border-lab-yellow/35 bg-lab-yellow/[0.085] text-stone-50 shadow-[0_12px_28px_rgba(216,179,108,0.12)]"
+              : "border-stone-300/[0.11] bg-stone-100/[0.045] text-stone-200 hover:border-stone-100/[0.16] hover:text-stone-50"
           }`}
         >
           <MonitorUp className="h-4 w-4" />
@@ -69,7 +69,7 @@ export function Navbar() {
         </button>
       </nav>
 
-      <div className="grid grid-cols-3 border-t border-stone-200/10 md:hidden">
+      <div className="grid grid-cols-3 border-t border-stone-200/[0.075] md:hidden">
         {navItems.map((item) => {
           const Icon = item.icon;
           return (
@@ -78,7 +78,7 @@ export function Navbar() {
               to={item.to}
               className={({ isActive }) =>
                 `flex items-center justify-center gap-1 px-2 py-2 text-xs ${
-                  isActive ? "bg-lab-cyan/10 text-stone-50" : "text-stone-400"
+                  isActive ? "bg-stone-100/[0.07] text-stone-50" : "text-stone-400"
                 }`
               }
             >

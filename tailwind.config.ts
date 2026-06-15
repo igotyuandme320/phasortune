@@ -6,18 +6,18 @@ const config: Config = {
     extend: {
       colors: {
         lab: {
-          bg: "#191713",
-          panel: "rgba(31, 29, 25, 0.78)",
-          cyan: "#D97757",
-          purple: "#8B78C2",
-          green: "#6FA58A",
-          yellow: "#D6A75D",
-          text: "#F3EEE7",
+          bg: "#111214",
+          panel: "rgba(25, 25, 24, 0.72)",
+          cyan: "#E37A5F",
+          purple: "#9A8CDC",
+          green: "#78B99A",
+          yellow: "#D8B36C",
+          text: "#F7F1E8",
         },
       },
       boxShadow: {
-        neon: "0 12px 38px rgba(217, 119, 87, 0.18)",
-        panel: "0 18px 60px rgba(0, 0, 0, 0.28)",
+        neon: "0 12px 34px rgba(227, 122, 95, 0.14)",
+        panel: "0 18px 54px rgba(0, 0, 0, 0.22)",
       },
       animation: {
         "grid-flow": "gridFlow 18s linear infinite",

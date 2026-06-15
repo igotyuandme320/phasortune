@@ -16,22 +16,22 @@ export function ImpedanceTriangle({ resistance, reactance, impedance, phase }: I
   const phaseDegrees = (phase * 180) / Math.PI;
 
   return (
-    <div className="rounded-lg border border-stone-200/10 bg-[#211f1b]/55 p-4">
+    <div className="chart-surface p-4">
       <div className="mb-3 flex items-center justify-between gap-3">
         <div>
           <h3 className="font-semibold text-stone-50">阻抗三角形</h3>
           <p className="text-xs text-stone-400">R 与 XL - XC 的几何关系</p>
         </div>
-        <span className="rounded-md border border-lab-yellow/20 bg-lab-yellow/10 px-2 py-1 text-xs text-stone-100">
+        <span className="rounded-md border border-lab-yellow/20 bg-lab-yellow/[0.075] px-2.5 py-1 text-xs text-stone-100">
           |Z| = {impedance.toFixed(2)} Ω
         </span>
       </div>
       <svg viewBox="0 0 320 240" className="h-[230px] w-full">
         <path d="M35 128 H285 M58 28 V218" stroke="rgba(246,235,220,0.10)" strokeWidth="1" />
         <path d={`M ${x0} ${y0} H ${x1} V ${y1} Z`} fill="rgba(217,119,87,0.08)" stroke="rgba(217,119,87,0.16)" />
-        <line x1={x0} y1={y0} x2={x1} y2={y0} stroke="#D97757" strokeWidth="4.5" strokeLinecap="round" />
-        <line x1={x1} y1={y0} x2={x1} y2={y1} stroke="#8B78C2" strokeWidth="4.5" strokeLinecap="round" />
-        <line x1={x0} y1={y0} x2={x1} y2={y1} stroke="#D6A75D" strokeWidth="4.5" strokeLinecap="round" />
+        <line x1={x0} y1={y0} x2={x1} y2={y0} stroke="#E37A5F" strokeWidth="4" strokeLinecap="round" />
+        <line x1={x1} y1={y0} x2={x1} y2={y1} stroke="#9A8CDC" strokeWidth="4" strokeLinecap="round" />
+        <line x1={x0} y1={y0} x2={x1} y2={y1} stroke="#D8B36C" strokeWidth="4" strokeLinecap="round" />
         <text x={(x0 + x1) / 2 - 14} y={y0 + 24} fill="#F0B09A" fontSize="13" fontWeight="700">
           R
         </text>
@@ -46,8 +46,8 @@ export function ImpedanceTriangle({ resistance, reactance, impedance, phase }: I
             y0 - Math.sign(reactance || 1) * 28 * Math.sin(Math.abs(phase))
           }`}
           fill="none"
-          stroke="#6FA58A"
-          strokeWidth="3"
+          stroke="#78B99A"
+          strokeWidth="2.5"
           strokeLinecap="round"
         />
         <text x={x0 + 34} y={y0 - 8} fill="#BFD9C9" fontSize="12">
