@@ -79,8 +79,8 @@ export function PhasorLabPage() {
             <SliderControl label="电压幅值 U" subtitle="正弦电源幅值" min={1} max={20} step={0.1} value={voltage} unit="V" onChange={setVoltage} />
             <SliderControl label="频率 f" subtitle="激励频率" min={10} max={2000} step={1} value={frequency} unit="Hz" accent="green" onChange={setFrequency} />
             <SliderControl label="电阻 R" subtitle="耗能元件" min={1} max={200} step={1} value={resistance} unit="Ω" accent="yellow" onChange={setResistance} />
-            <SliderControl label="电感 L" subtitle="储磁元件" min={1} max={500} step={1} value={inductanceMh} unit="mH" accent="purple" onChange={setInductanceMh} />
-            <SliderControl label="电容 C" subtitle="储电元件" min={1} max={1000} step={1} value={capacitanceUf} unit="μF" accent="cyan" onChange={setCapacitanceUf} />
+            <SliderControl label="电感量 L" subtitle="单位毫亨" min={1} max={500} step={1} value={inductanceMh} unit="mH" accent="purple" onChange={setInductanceMh} />
+            <SliderControl label="电容量 C" subtitle="单位微法" min={1} max={1000} step={1} value={capacitanceUf} unit="µF" accent="cyan" onChange={setCapacitanceUf} />
           </div>
         </GlassPanel>
 

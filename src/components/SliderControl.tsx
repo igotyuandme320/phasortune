@@ -42,7 +42,7 @@ export function SliderControl({
         </span>
         <span className="rounded-md border border-stone-100/10 bg-stone-100/5 px-2 py-1 text-sm font-semibold text-stone-50">
           {formatValue ? formatValue(value) : value}
-          {unit ? <span className="ml-1 text-xs text-stone-400">{unit}</span> : null}
+          {unit ? <span className="ml-1 text-xs text-stone-400"> {unit}</span> : null}
         </span>
       </span>
       <input
