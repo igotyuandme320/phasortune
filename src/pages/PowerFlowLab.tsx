@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import { useMemo, useState } from "react";
 import { AnimatedCircuit } from "../components/AnimatedCircuit";
-import { FormulaCard } from "../components/FormulaCard";
 import { GlassPanel } from "../components/GlassPanel";
 import { ParameterControlPanel } from "../components/ParameterControlPanel";
 import { PowerInterpretationPanel } from "../components/PowerInterpretationPanel";
@@ -18,7 +17,7 @@ import {
 
 export function PowerFlowLab() {
   const [voltage, setVoltage] = useState(10);
-  const [frequency, setFrequency] = useState(500);
+  const [frequency, setFrequency] = useState(50);
   const [resistance, setResistance] = useState(50);
   const [inductanceMh, setInductanceMh] = useState(100);
   const [capacitanceUf, setCapacitanceUf] = useState(100);
@@ -76,8 +75,9 @@ export function PowerFlowLab() {
         </div>
       </div>
 
-      <div className="grid gap-5 xl:grid-cols-[330px_minmax(0,1fr)_340px]">
-        <GlassPanel className="h-fit p-4" delay={0.05}>
+      <div className="grid gap-5 xl:grid-cols-[300px_minmax(0,1fr)_360px]">
+        {/* 左侧：参数控制，滚动时整页严格固定 */}
+        <GlassPanel className="order-1 h-fit self-start p-4 xl:sticky xl:top-20" delay={0.05}>
           <h2 className="mb-4 text-lg font-bold text-stone-50">参数控制</h2>
           <ParameterControlPanel
             voltage={voltage}
@@ -93,29 +93,11 @@ export function PowerFlowLab() {
           />
         </GlassPanel>
 
-        <div className="grid gap-5">
-          <GlassPanel className="p-4 demo-emphasis" delay={0.12}>
-            <div className="mb-4 flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
-              <div>
-                <h2 className="text-lg font-bold text-stone-50">RLC 串联电路</h2>
-                <p className="text-xs text-stone-400">电压、电流与功率按当前参数连续变化</p>
-              </div>
-              <span className="rounded-lg border border-lab-green/20 bg-lab-green/[0.075] px-3 py-1 text-sm text-stone-100">
-                I = {values.metrics.current.toFixed(4)} A
-              </span>
-            </div>
-            <AnimatedCircuit
-              intensity={values.visualCurrent}
-              speed={values.visualCurrent}
-              className="min-h-[300px]"
-            />
-          </GlassPanel>
-
-          <VoltageCurrentChart data={values.waveform} />
+        {/* 中间：滚动分析内容 */}
+        <div className="order-3 grid content-start gap-5 xl:order-2">
+          <VoltageCurrentChart data={values.waveform} voltageScale={20} currentScale={voltage / resistance} />
           <PowerWaveformChart data={values.waveform} averagePower={values.metrics.activePower} />
-        </div>
 
-        <div className="grid h-fit gap-5">
           <GlassPanel className="p-4" delay={0.18}>
             <h2 className="mb-4 text-lg font-bold text-stone-50">功率数据</h2>
             <PowerMetricsPanel metrics={values.metrics} />
@@ -125,29 +107,33 @@ export function PowerFlowLab() {
             <h2 className="mb-4 text-lg font-bold text-stone-50">物理解释</h2>
             <PowerInterpretationPanel metrics={values.metrics} />
           </GlassPanel>
+
+          <GlassPanel className="p-4" delay={0.08}>
+            <h2 className="mb-4 text-lg font-bold text-stone-50">电路状态</h2>
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              <ValueCard label="ω" subtitle="角频率" value={formatPowerValue(values.metrics.omega, 1)} unit="rad/s" formula={"\\omega=2\\pi f"} />
+              <ValueCard label="|Z|" subtitle="阻抗模" value={formatPowerValue(values.metrics.impedance)} unit="Ω" formula={"|Z|=\\sqrt{R^2+(X_L-X_C)^2}"} />
+              <ValueCard label="XL" subtitle="感抗" value={formatPowerValue(values.metrics.XL)} unit="Ω" accent="purple" formula={"X_L=\\omega L"} />
+              <ValueCard label="XC" subtitle="容抗" value={formatPowerValue(values.metrics.XC)} unit="Ω" accent="yellow" formula={"X_C=\\dfrac{1}{\\omega C}"} />
+            </div>
+          </GlassPanel>
         </div>
-      </div>
 
-      <div className="mt-5 grid gap-5 lg:grid-cols-[1fr_0.9fr]">
-        <GlassPanel className="p-4" delay={0.05}>
-          <h2 className="mb-4 text-lg font-bold text-stone-50">功率公式</h2>
-          <div className="grid gap-3 md:grid-cols-2">
-            <FormulaCard formula={"p(t)=u(t)i(t)"} />
-            <FormulaCard formula={"P=UI\\cos\\varphi"} />
-            <FormulaCard formula={"Q=UI\\sin\\varphi"} />
-            <FormulaCard formula={"S=UI"} />
-          </div>
-        </GlassPanel>
-
-        <GlassPanel className="p-4" delay={0.08}>
-          <h2 className="mb-4 text-lg font-bold text-stone-50">电路状态</h2>
-          <div className="grid gap-3 sm:grid-cols-2">
-            <ValueCard label="ω" subtitle="角频率" value={formatPowerValue(values.metrics.omega, 1)} unit="rad/s" />
-            <ValueCard label="|Z|" subtitle="阻抗模" value={formatPowerValue(values.metrics.impedance)} unit="Ω" />
-            <ValueCard label="XL" subtitle="感抗" value={formatPowerValue(values.metrics.XL)} unit="Ω" accent="purple" />
-            <ValueCard label="XC" subtitle="容抗" value={formatPowerValue(values.metrics.XC)} unit="Ω" accent="yellow" />
-          </div>
-        </GlassPanel>
+        {/* 右侧：电路示意，严格固定在右上角 */}
+        <div className="order-2 h-fit self-start xl:order-3 xl:sticky xl:top-20">
+          <GlassPanel className="p-4 demo-emphasis" delay={0.12}>
+            <div className="mb-3 flex items-center justify-between gap-2">
+              <div>
+                <h2 className="text-base font-bold text-stone-50">RLC 串联电路</h2>
+                <p className="text-xs text-stone-400">动态示意</p>
+              </div>
+              <span className="rounded-lg border border-lab-green/20 bg-lab-green/[0.075] px-2.5 py-1 text-xs text-stone-100">
+                I = {values.metrics.current.toFixed(4)} A
+              </span>
+            </div>
+            <AnimatedCircuit intensity={values.visualCurrent} speed={values.visualCurrent} />
+          </GlassPanel>
+        </div>
       </div>
     </motion.main>
   );

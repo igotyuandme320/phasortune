@@ -12,9 +12,11 @@ import type { WaveformPoint } from "../utils/circuitMath";
 
 interface WaveformChartProps {
   data: WaveformPoint[];
+  voltageScale: number;
+  currentScale: number;
 }
 
-export function WaveformChart({ data }: WaveformChartProps) {
+export function WaveformChart({ data, voltageScale, currentScale }: WaveformChartProps) {
   return (
     <div className="chart-surface h-[320px] p-4">
       <div className="mb-3">
@@ -32,10 +34,20 @@ export function WaveformChart({ data }: WaveformChartProps) {
             tickFormatter={(value: number) => `${value.toFixed(1)}ms`}
             stroke="rgba(246,235,220,0.16)"
           />
-          <YAxis yAxisId="voltage" tick={{ fill: "#F1A086", fontSize: 12 }} stroke="rgba(227,122,95,0.24)" />
+          <YAxis
+            yAxisId="voltage"
+            domain={[-voltageScale * 1.05, voltageScale * 1.05]}
+            allowDataOverflow
+            tickFormatter={(value: number) => value.toFixed(0)}
+            tick={{ fill: "#F1A086", fontSize: 12 }}
+            stroke="rgba(227,122,95,0.24)"
+          />
           <YAxis
             yAxisId="current"
             orientation="right"
+            domain={[-currentScale * 1.05, currentScale * 1.05]}
+            allowDataOverflow
+            tickFormatter={(value: number) => value.toFixed(2)}
             tick={{ fill: "#BFD9C9", fontSize: 12 }}
             stroke="rgba(120,185,154,0.24)"
           />

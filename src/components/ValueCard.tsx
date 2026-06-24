@@ -1,10 +1,12 @@
 import type { ReactNode } from "react";
+import { InlineMath } from "react-katex";
 
 interface ValueCardProps {
   label: string;
   subtitle?: string;
   value: ReactNode;
   unit?: string;
+  formula?: string;
   accent?: "cyan" | "green" | "purple" | "yellow";
 }
 
@@ -15,7 +17,7 @@ const accentClass = {
   yellow: "text-lab-yellow border-lab-yellow/20 bg-lab-yellow/[0.055]",
 };
 
-export function ValueCard({ label, subtitle, value, unit, accent = "cyan" }: ValueCardProps) {
+export function ValueCard({ label, subtitle, value, unit, formula, accent = "cyan" }: ValueCardProps) {
   return (
     <div className={`relative overflow-hidden rounded-lg border p-4 shadow-[inset_0_1px_0_rgba(255,252,247,0.055),0_10px_26px_rgba(0,0,0,0.14)] ${accentClass[accent]}`}>
       <div className="absolute inset-x-0 top-0 h-px bg-current opacity-30" />
@@ -25,6 +27,11 @@ export function ValueCard({ label, subtitle, value, unit, accent = "cyan" }: Val
         <span className="text-2xl font-semibold tracking-normal text-stone-50">{value}</span>
         {unit ? <span className="text-sm text-stone-400">{unit}</span> : null}
       </div>
+      {formula ? (
+        <div className="mt-2 overflow-x-auto border-t border-stone-100/[0.08] pt-2 [&_.katex]:text-[0.8em] [&_.katex]:text-stone-400">
+          <InlineMath math={formula} />
+        </div>
+      ) : null}
     </div>
   );
 }

@@ -1,8 +1,12 @@
-export interface PowerReactance {
-  omega: number;
-  XL: number;
-  XC: number;
-}
+import {
+  calculateCurrent,
+  calculateImpedance,
+  calculatePhase,
+  calculateReactance,
+} from "./circuitMath";
+
+// 共享的角频率/格式化工具直接复用 circuitMath，避免重复实现。
+export { formatNumber as formatPowerValue, radiansToDegrees } from "./circuitMath";
 
 export interface PowerMetrics {
   omega: number;
@@ -25,36 +29,6 @@ export interface PowerWaveformPoint {
   P: number;
 }
 
-const TWO_PI = 2 * Math.PI;
-
-export function calculateOmega(f: number): number {
-  return TWO_PI * f;
-}
-
-export function calculateReactance(f: number, L: number, C: number): PowerReactance {
-  const omega = calculateOmega(f);
-
-  return {
-    omega,
-    XL: omega * L,
-    XC: 1 / (omega * C),
-  };
-}
-
-export function calculateImpedance(R: number, f: number, L: number, C: number): number {
-  const { XL, XC } = calculateReactance(f, L, C);
-  return Math.sqrt(R * R + Math.pow(XL - XC, 2));
-}
-
-export function calculatePhase(R: number, f: number, L: number, C: number): number {
-  const { XL, XC } = calculateReactance(f, L, C);
-  return Math.atan((XL - XC) / R);
-}
-
-export function calculateCurrent(U: number, R: number, f: number, L: number, C: number): number {
-  return U / calculateImpedance(R, f, L, C);
-}
-
 export function calculateInstantaneousPower(U: number, I: number, omega: number, phase: number, t: number): number {
   const voltage = U * Math.sin(omega * t);
   const current = I * Math.sin(omega * t - phase);
@@ -66,7 +40,9 @@ export function calculatePowerMetrics(U: number, R: number, f: number, L: number
   const impedance = calculateImpedance(R, f, L, C);
   const current = calculateCurrent(U, R, f, L, C);
   const phase = calculatePhase(R, f, L, C);
-  const apparentPower = U * current;
+  // U 与 current 为峰值（幅值），功率取有效值口径：S = U_rms·I_rms = U·I/2。
+  // 这样有功功率 P 与瞬时功率 p(t) 的真实平均值 ½UI·cosφ 一致。
+  const apparentPower = (U * current) / 2;
 
   return {
     omega,
@@ -106,24 +82,4 @@ export function generateWaveformData(
       P: metrics.activePower,
     };
   });
-}
-
-export function radiansToDegrees(radians: number): number {
-  return (radians * 180) / Math.PI;
-}
-
-export function formatPowerValue(value: number, digits = 2): string {
-  if (!Number.isFinite(value)) {
-    return "--";
-  }
-
-  if (Math.abs(value) >= 1000) {
-    return value.toFixed(0);
-  }
-
-  if (Math.abs(value) >= 100) {
-    return value.toFixed(1);
-  }
-
-  return value.toFixed(digits);
 }

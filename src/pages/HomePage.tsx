@@ -8,7 +8,6 @@ import { GlassPanel } from "../components/GlassPanel";
 const formulaCards = [
   "Z=R+j(\\omega L-\\frac{1}{\\omega C})",
   "P=UI\\cos\\varphi",
-  "\\varphi=\\arctan\\frac{X_L-X_C}{R}",
 ];
 
 const labCards = [
@@ -62,23 +61,15 @@ export function HomePage() {
           </p>
         </div>
 
-        <div className="relative mx-auto w-full max-w-5xl">
-          <AnimatedCircuit intensity={0.72} speed={0.76} className="min-h-[300px]" />
-          <div className="pointer-events-none absolute inset-0 hidden lg:block">
-            {formulaCards.map((formula, index) => (
-              <div
-                key={formula}
-                className={`absolute w-64 animate-float-soft ${
-                  index === 0
-                    ? "left-4 top-5"
-                    : index === 1
-                      ? "right-6 top-8 [animation-delay:1.2s]"
-                      : "bottom-5 left-1/2 -translate-x-1/2 [animation-delay:2.4s]"
-                }`}
-              >
-                <FormulaCard formula={formula} />
-              </div>
-            ))}
+        <div className="mx-auto grid w-full max-w-7xl items-center gap-4 lg:grid-cols-[1fr_auto_1fr]">
+          <div className="hidden w-52 animate-float-soft justify-self-end lg:block">
+            <FormulaCard formula={formulaCards[0]} />
+          </div>
+          <div className="relative mx-auto w-full max-w-4xl">
+            <AnimatedCircuit intensity={0.72} speed={0.76} />
+          </div>
+          <div className="hidden w-52 animate-float-soft justify-self-start lg:block [animation-delay:1.2s]">
+            <FormulaCard formula={formulaCards[1]} />
           </div>
         </div>
 

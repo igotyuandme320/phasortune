@@ -1,4 +1,4 @@
-import { radiansToDegrees, type PowerMetrics } from "../utils/powerMath";
+import type { PowerMetrics } from "../utils/powerMath";
 
 interface PowerInterpretationPanelProps {
   metrics: PowerMetrics;
@@ -48,7 +48,7 @@ function getEfficiencyText(metrics: PowerMetrics): string {
 
 export function PowerInterpretationPanel({ metrics }: PowerInterpretationPanelProps) {
   return (
-    <div className="grid gap-3">
+    <div className="grid gap-3 lg:grid-cols-3">
       <div className="surface-panel border-lab-cyan/15 p-4">
         <div className="text-sm font-semibold text-stone-50">电路性质</div>
         <p className="mt-2 text-sm leading-6 text-stone-300">{getCircuitText(metrics)}</p>
@@ -60,10 +60,6 @@ export function PowerInterpretationPanel({ metrics }: PowerInterpretationPanelPr
       <div className="surface-panel border-lab-green/15 p-4">
         <div className="text-sm font-semibold text-stone-50">功率利用</div>
         <p className="mt-2 text-sm leading-6 text-stone-300">{getEfficiencyText(metrics)}</p>
-      </div>
-      <div className="surface-panel p-4">
-        <div className="text-xs uppercase tracking-[0.18em] text-stone-500">φ</div>
-        <div className="mt-1 text-3xl font-semibold text-stone-50">{radiansToDegrees(metrics.phase).toFixed(2)}°</div>
       </div>
     </div>
   );

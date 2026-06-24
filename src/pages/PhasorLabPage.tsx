@@ -1,10 +1,10 @@
 import { motion } from "framer-motion";
 import { useMemo, useState } from "react";
 import { AnimatedCircuit } from "../components/AnimatedCircuit";
-import { FormulaCard } from "../components/FormulaCard";
 import { GlassPanel } from "../components/GlassPanel";
 import { ImpedanceTriangle } from "../components/ImpedanceTriangle";
 import { PhasorDiagram } from "../components/PhasorDiagram";
+import { QuizCard } from "../components/QuizCard";
 import { SliderControl } from "../components/SliderControl";
 import { ValueCard } from "../components/ValueCard";
 import { WaveformChart } from "../components/WaveformChart";
@@ -27,7 +27,7 @@ const typeMeta = {
 
 export function PhasorLabPage() {
   const [voltage, setVoltage] = useState(10);
-  const [frequency, setFrequency] = useState(500);
+  const [frequency, setFrequency] = useState(50);
   const [resistance, setResistance] = useState(50);
   const [inductanceMh, setInductanceMh] = useState(100);
   const [capacitanceUf, setCapacitanceUf] = useState(100);
@@ -72,8 +72,9 @@ export function PhasorLabPage() {
         </p>
       </div>
 
-      <div className="grid gap-5 xl:grid-cols-[320px_minmax(0,1fr)_330px]">
-        <GlassPanel className="h-fit p-4" delay={0.05}>
+      <div className="grid gap-5 xl:grid-cols-[300px_minmax(0,1fr)_360px]">
+        {/* 左侧：参数控制，滚动时整页严格固定 */}
+        <GlassPanel className="order-1 h-fit self-start p-4 xl:sticky xl:top-20" delay={0.05}>
           <h2 className="mb-4 text-lg font-bold text-stone-50">参数控制</h2>
           <div className="grid gap-3">
             <SliderControl label="电压幅值 U" subtitle="正弦电源幅值" min={1} max={20} step={0.1} value={voltage} unit="V" onChange={setVoltage} />
@@ -84,74 +85,61 @@ export function PhasorLabPage() {
           </div>
         </GlassPanel>
 
-        <div className="grid gap-5">
+        {/* 中间：滚动分析内容 */}
+        <div className="order-3 grid content-start gap-5 xl:order-2">
+          <WaveformChart data={values.waveform} voltageScale={20} currentScale={voltage / resistance} />
+
+          <GlassPanel className="p-4" delay={0.18}>
+            <h2 className="mb-4 text-lg font-bold text-stone-50">实时计算</h2>
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              <ValueCard label="ω" subtitle="角频率" value={formatNumber(values.omega, 1)} unit="rad/s" formula={"\\omega=2\\pi f"} />
+              <ValueCard label="XL" subtitle="感抗" value={formatNumber(values.XL)} unit="Ω" accent="purple" formula={"X_L=\\omega L"} />
+              <ValueCard label="XC" subtitle="容抗" value={formatNumber(values.XC)} unit="Ω" accent="yellow" formula={"X_C=\\dfrac{1}{\\omega C}"} />
+              <ValueCard label="|Z|" subtitle="阻抗模" value={formatNumber(values.impedance)} unit="Ω" formula={"|Z|=\\sqrt{R^2+(X_L-X_C)^2}"} />
+              <ValueCard label="I" subtitle="电流幅值" value={values.current.toFixed(4)} unit="A" accent="green" formula={"I=\\dfrac{U}{|Z|}"} />
+              <ValueCard label="φ" subtitle="相位角" value={values.phaseDeg.toFixed(2)} unit="°" accent="yellow" formula={"\\varphi=\\arctan\\dfrac{X_L-X_C}{R}"} />
+              <ValueCard label={currentType.label} subtitle={currentType.subtitle} value={values.type === "inductive" ? "XL > XC" : values.type === "capacitive" ? "XC > XL" : "XL ≈ XC"} accent={currentType.accent} />
+            </div>
+          </GlassPanel>
+
+          <div className="grid gap-5 lg:grid-cols-2">
+            <PhasorDiagram
+              voltageAmplitude={voltage}
+              currentAmplitude={values.current}
+              currentScale={currentRatio}
+              phase={values.phase}
+            />
+            <ImpedanceTriangle resistance={resistance} reactance={values.XL - values.XC} impedance={values.impedance} phase={values.phase} />
+          </div>
+
+          <GlassPanel className="p-4" delay={0.08}>
+            <div className="mb-4">
+              <h2 className="text-lg font-bold text-stone-50">课堂提问</h2>
+              <p className="text-xs text-stone-400">点击或悬停卡片查看答案</p>
+            </div>
+            <div className="grid gap-3 sm:grid-cols-3">
+              <QuizCard question="什么是相量？" answer="相量把同频正弦量表示为复平面中的幅值和相位。" />
+              <QuizCard question="为什么用复数表示正弦量？" answer="微分关系变成代数关系，电阻、电感、电容统一为阻抗。" />
+              <QuizCard question="阻抗角如何决定相位差？" answer="φ 为电压相对电流的相位角；正值表示感性、电流滞后，负值表示容性、电流超前。" />
+            </div>
+          </GlassPanel>
+        </div>
+
+        {/* 右侧：电路示意，严格固定在右上角 */}
+        <div className="order-2 h-fit self-start xl:order-3 xl:sticky xl:top-20">
           <GlassPanel className="p-4 demo-emphasis" delay={0.12}>
-            <div className="mb-4 flex items-center justify-between gap-3">
+            <div className="mb-3 flex items-center justify-between gap-2">
               <div>
-                <h2 className="text-lg font-bold text-stone-50">RLC 串联电路</h2>
-                <p className="text-xs text-stone-400">串联电路动态示意</p>
+                <h2 className="text-base font-bold text-stone-50">RLC 串联电路</h2>
+                <p className="text-xs text-stone-400">动态示意</p>
               </div>
-              <span className="rounded-lg border border-lab-green/20 bg-lab-green/[0.075] px-3 py-1 text-sm text-stone-100">
+              <span className="rounded-lg border border-lab-green/20 bg-lab-green/[0.075] px-2.5 py-1 text-xs text-stone-100">
                 I = {values.current.toFixed(4)} A
               </span>
             </div>
             <AnimatedCircuit intensity={visualCurrentRatio} speed={visualCurrentRatio} />
           </GlassPanel>
-          <WaveformChart data={values.waveform} />
         </div>
-
-        <GlassPanel className="h-fit p-4" delay={0.18}>
-          <h2 className="mb-4 text-lg font-bold text-stone-50">实时计算</h2>
-          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-1">
-            <ValueCard label="ω" subtitle="角频率" value={formatNumber(values.omega, 1)} unit="rad/s" />
-            <ValueCard label="XL" subtitle="感抗" value={formatNumber(values.XL)} unit="Ω" accent="purple" />
-            <ValueCard label="XC" subtitle="容抗" value={formatNumber(values.XC)} unit="Ω" accent="yellow" />
-            <ValueCard label="|Z|" subtitle="阻抗模" value={formatNumber(values.impedance)} unit="Ω" />
-            <ValueCard label="I" subtitle="电流幅值" value={values.current.toFixed(4)} unit="A" accent="green" />
-            <ValueCard label="φ" subtitle="相位角" value={values.phaseDeg.toFixed(2)} unit="°" accent="yellow" />
-            <ValueCard label={currentType.label} subtitle={currentType.subtitle} value={values.type === "inductive" ? "XL > XC" : values.type === "capacitive" ? "XC > XL" : "XL ≈ XC"} accent={currentType.accent} />
-          </div>
-        </GlassPanel>
-      </div>
-
-      <div className="mt-5 grid gap-5 lg:grid-cols-2">
-        <PhasorDiagram
-          voltageAmplitude={voltage}
-          currentAmplitude={values.current}
-          currentScale={currentRatio}
-          phase={values.phase}
-        />
-        <ImpedanceTriangle resistance={resistance} reactance={values.XL - values.XC} impedance={values.impedance} phase={values.phase} />
-      </div>
-
-      <div className="mt-5 grid gap-5 lg:grid-cols-[1.1fr_0.9fr]">
-        <GlassPanel className="p-4" delay={0.05}>
-          <h2 className="mb-4 text-lg font-bold text-stone-50">核心公式</h2>
-          <div className="grid gap-3 md:grid-cols-2">
-            <FormulaCard formula={"Z=R+j(\\omega L-\\frac{1}{\\omega C})"} />
-            <FormulaCard formula={"|Z|=\\sqrt{R^2+(X_L-X_C)^2}"} />
-            <FormulaCard formula={"I=\\frac{U}{|Z|}"} />
-            <FormulaCard formula={"\\varphi=\\arctan\\frac{X_L-X_C}{R}"} />
-          </div>
-        </GlassPanel>
-
-        <GlassPanel className="p-4 demo-hide" delay={0.08}>
-          <h2 className="mb-4 text-lg font-bold text-stone-50">课堂提示</h2>
-          <div className="grid gap-3">
-            <div className="surface-panel p-3">
-              <h3 className="font-semibold text-stone-50">什么是相量？</h3>
-              <p className="mt-1 text-sm leading-6 text-stone-300">相量把同频正弦量表示为复平面中的幅值和相位。</p>
-            </div>
-            <div className="surface-panel p-3">
-              <h3 className="font-semibold text-stone-50">为什么用复数？</h3>
-              <p className="mt-1 text-sm leading-6 text-stone-300">微分关系变成代数关系，电阻、电感、电容统一为阻抗。</p>
-            </div>
-            <div className="surface-panel p-3">
-              <h3 className="font-semibold text-stone-50">阻抗角的意义</h3>
-              <p className="mt-1 text-sm leading-6 text-stone-300">φ 为电压相对电流的相位角；正值表示感性，负值表示容性。</p>
-            </div>
-          </div>
-        </GlassPanel>
       </div>
     </motion.main>
   );

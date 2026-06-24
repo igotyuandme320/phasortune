@@ -22,8 +22,8 @@ export function AnimatedCircuit({
   const particleCount = 6 + Math.round(glow * 3);
 
   return (
-    <div className={`surface-panel relative overflow-hidden ${className}`}>
-      <svg viewBox="0 0 680 360" role="img" aria-label="RLC 串联电路动画" className="h-full min-h-[260px] w-full">
+    <div className={`surface-panel relative aspect-[680/360] overflow-hidden ${className}`}>
+      <svg viewBox="0 0 680 360" role="img" aria-label="RLC 串联电路动画" className="absolute inset-0 h-full w-full">
         <defs>
           <filter id={`wire-glow-${rawId}`} x="-40%" y="-40%" width="180%" height="180%">
             <feGaussianBlur stdDeviation={String(3 + glow * 2)} result="blur" />
@@ -110,7 +110,7 @@ export function AnimatedCircuit({
         </g>
 
         {Array.from({ length: particleCount }, (_, index) => (
-          <circle key={index} r={3.5 + glow * 3.2} fill="#F7E5D8" opacity={0.48 + glow * 0.45}>
+          <circle key={index} r={2.6 + glow * 2.4} fill="#F7E5D8" opacity={0.48 + glow * 0.45}>
             <animateMotion
               dur={`${duration}s`}
               begin={`${(-index * duration) / particleCount}s`}
@@ -132,7 +132,7 @@ export function AnimatedCircuit({
       <div
         className="pointer-events-none absolute inset-0"
         style={{
-          boxShadow: `inset 0 0 ${24 + glow * 46}px rgba(217,119,87,${0.05 + glow * 0.12})`,
+          boxShadow: `inset 0 0 ${16 + glow * 30}px rgba(217,119,87,${0.05 + glow * 0.12})`,
         }}
       />
     </div>
