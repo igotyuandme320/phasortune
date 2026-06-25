@@ -14,9 +14,10 @@ import type { PowerWaveformPoint } from "../utils/powerMath";
 interface PowerWaveformChartProps {
   data: PowerWaveformPoint[];
   averagePower: number;
+  powerScale: number;
 }
 
-export function PowerWaveformChart({ data, averagePower }: PowerWaveformChartProps) {
+export function PowerWaveformChart({ data, averagePower, powerScale }: PowerWaveformChartProps) {
   return (
     <div className="chart-surface h-[340px] p-4">
       <div className="mb-3 flex items-center justify-between gap-3">
@@ -37,7 +38,13 @@ export function PowerWaveformChart({ data, averagePower }: PowerWaveformChartPro
             tickFormatter={(value: number) => `${value.toFixed(1)}ms`}
             stroke="rgba(246,235,220,0.16)"
           />
-          <YAxis tick={{ fill: "#F1A086", fontSize: 12 }} stroke="rgba(227,122,95,0.24)" />
+          <YAxis
+            domain={[-powerScale * 0.6, powerScale * 1.05]}
+            allowDataOverflow
+            tickFormatter={(value: number) => value.toFixed(2)}
+            tick={{ fill: "#F1A086", fontSize: 12 }}
+            stroke="rgba(227,122,95,0.24)"
+          />
           <Tooltip
             contentStyle={{ background: "rgba(18,17,15,0.92)", border: "1px solid rgba(246,235,220,0.12)", borderRadius: 8, boxShadow: "0 14px 34px rgba(0,0,0,0.28)" }}
             formatter={(value: number, name) => [`${value.toFixed(3)}`, name === "p" ? "瞬时功率" : "平均功率"]}

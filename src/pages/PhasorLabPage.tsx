@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { useMemo, useState } from "react";
-import { AnimatedCircuit } from "../components/AnimatedCircuit";
 import { GlassPanel } from "../components/GlassPanel";
 import { ImpedanceTriangle } from "../components/ImpedanceTriangle";
 import { PhasorDiagram } from "../components/PhasorDiagram";
@@ -53,7 +52,6 @@ export function PhasorLabPage() {
   }, [C, L, frequency, resistance, voltage]);
 
   const currentRatio = Math.min(1, values.current / (voltage / resistance));
-  const visualCurrentRatio = Math.sqrt(currentRatio);
   const currentType = typeMeta[values.type];
 
   return (
@@ -72,9 +70,9 @@ export function PhasorLabPage() {
         </p>
       </div>
 
-      <div className="grid gap-5 xl:grid-cols-[300px_minmax(0,1fr)_360px]">
+      <div className="grid gap-5 xl:grid-cols-[300px_minmax(0,1fr)]">
         {/* 左侧：参数控制，滚动时整页严格固定 */}
-        <GlassPanel className="order-1 h-fit self-start p-4 xl:sticky xl:top-20" delay={0.05}>
+        <GlassPanel className="h-fit self-start p-4 xl:sticky xl:top-20" delay={0.05}>
           <h2 className="mb-4 text-lg font-bold text-stone-50">参数控制</h2>
           <div className="grid gap-3">
             <SliderControl label="电压幅值 U" subtitle="正弦电源幅值" min={1} max={20} step={0.1} value={voltage} unit="V" onChange={setVoltage} />
@@ -85,8 +83,8 @@ export function PhasorLabPage() {
           </div>
         </GlassPanel>
 
-        {/* 中间：滚动分析内容 */}
-        <div className="order-3 grid content-start gap-5 xl:order-2">
+        {/* 右侧：滚动分析内容 */}
+        <div className="grid content-start gap-5">
           <WaveformChart data={values.waveform} voltageScale={20} currentScale={voltage / resistance} />
 
           <GlassPanel className="p-4" delay={0.18}>
@@ -122,22 +120,6 @@ export function PhasorLabPage() {
               <QuizCard question="为什么用复数表示正弦量？" answer="微分关系变成代数关系，电阻、电感、电容统一为阻抗。" />
               <QuizCard question="阻抗角如何决定相位差？" answer="φ 为电压相对电流的相位角；正值表示感性、电流滞后，负值表示容性、电流超前。" />
             </div>
-          </GlassPanel>
-        </div>
-
-        {/* 右侧：电路示意，严格固定在右上角 */}
-        <div className="order-2 h-fit self-start xl:order-3 xl:sticky xl:top-20">
-          <GlassPanel className="p-4 demo-emphasis" delay={0.12}>
-            <div className="mb-3 flex items-center justify-between gap-2">
-              <div>
-                <h2 className="text-base font-bold text-stone-50">RLC 串联电路</h2>
-                <p className="text-xs text-stone-400">动态示意</p>
-              </div>
-              <span className="rounded-lg border border-lab-green/20 bg-lab-green/[0.075] px-2.5 py-1 text-xs text-stone-100">
-                I = {values.current.toFixed(4)} A
-              </span>
-            </div>
-            <AnimatedCircuit intensity={visualCurrentRatio} speed={visualCurrentRatio} />
           </GlassPanel>
         </div>
       </div>

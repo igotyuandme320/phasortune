@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { useMemo, useState } from "react";
-import { AnimatedCircuit } from "../components/AnimatedCircuit";
 import { GlassPanel } from "../components/GlassPanel";
 import { ParameterControlPanel } from "../components/ParameterControlPanel";
 import { PowerInterpretationPanel } from "../components/PowerInterpretationPanel";
@@ -28,15 +27,12 @@ export function PowerFlowLab() {
   const values = useMemo(() => {
     const metrics = calculatePowerMetrics(voltage, resistance, frequency, L, C);
     const waveform = generateWaveformData(voltage, resistance, L, C, frequency);
-    const referenceCurrent = voltage / resistance;
-    const currentRatio = referenceCurrent === 0 ? 0 : Math.min(1, metrics.current / referenceCurrent);
 
     return {
       metrics,
       waveform,
       netReactance: metrics.XL - metrics.XC,
       phaseDeg: radiansToDegrees(metrics.phase),
-      visualCurrent: Math.sqrt(Math.max(0, currentRatio)),
     };
   }, [C, L, frequency, resistance, voltage]);
 
@@ -75,9 +71,9 @@ export function PowerFlowLab() {
         </div>
       </div>
 
-      <div className="grid gap-5 xl:grid-cols-[300px_minmax(0,1fr)_360px]">
+      <div className="grid gap-5 xl:grid-cols-[300px_minmax(0,1fr)]">
         {/* 左侧：参数控制，滚动时整页严格固定 */}
-        <GlassPanel className="order-1 h-fit self-start p-4 xl:sticky xl:top-20" delay={0.05}>
+        <GlassPanel className="h-fit self-start p-4 xl:sticky xl:top-20" delay={0.05}>
           <h2 className="mb-4 text-lg font-bold text-stone-50">参数控制</h2>
           <ParameterControlPanel
             voltage={voltage}
@@ -93,10 +89,10 @@ export function PowerFlowLab() {
           />
         </GlassPanel>
 
-        {/* 中间：滚动分析内容 */}
-        <div className="order-3 grid content-start gap-5 xl:order-2">
+        {/* 右侧：滚动分析内容 */}
+        <div className="grid content-start gap-5">
           <VoltageCurrentChart data={values.waveform} voltageScale={20} currentScale={voltage / resistance} />
-          <PowerWaveformChart data={values.waveform} averagePower={values.metrics.activePower} />
+          <PowerWaveformChart data={values.waveform} averagePower={values.metrics.activePower} powerScale={(voltage * voltage) / resistance} />
 
           <GlassPanel className="p-4" delay={0.18}>
             <h2 className="mb-4 text-lg font-bold text-stone-50">功率数据</h2>
@@ -116,22 +112,6 @@ export function PowerFlowLab() {
               <ValueCard label="XL" subtitle="感抗" value={formatPowerValue(values.metrics.XL)} unit="Ω" accent="purple" formula={"X_L=\\omega L"} />
               <ValueCard label="XC" subtitle="容抗" value={formatPowerValue(values.metrics.XC)} unit="Ω" accent="yellow" formula={"X_C=\\dfrac{1}{\\omega C}"} />
             </div>
-          </GlassPanel>
-        </div>
-
-        {/* 右侧：电路示意，严格固定在右上角 */}
-        <div className="order-2 h-fit self-start xl:order-3 xl:sticky xl:top-20">
-          <GlassPanel className="p-4 demo-emphasis" delay={0.12}>
-            <div className="mb-3 flex items-center justify-between gap-2">
-              <div>
-                <h2 className="text-base font-bold text-stone-50">RLC 串联电路</h2>
-                <p className="text-xs text-stone-400">动态示意</p>
-              </div>
-              <span className="rounded-lg border border-lab-green/20 bg-lab-green/[0.075] px-2.5 py-1 text-xs text-stone-100">
-                I = {values.metrics.current.toFixed(4)} A
-              </span>
-            </div>
-            <AnimatedCircuit intensity={values.visualCurrent} speed={values.visualCurrent} />
           </GlassPanel>
         </div>
       </div>
